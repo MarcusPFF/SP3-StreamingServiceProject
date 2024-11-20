@@ -1,0 +1,65 @@
+@startuml
+!pragma layout smetana
+
+class Main {
+    + static void main(String[] args)
+}
+Main --> LogonMenu
+
+class LogonMenu {
+    - String username
+    - String password
+
+    + void createUser()
+    + void loginCurrentUser(String username, String password)
+}
+
+LogonMenu --> UserManager
+
+class UserManager {
+    - HashMap<String, String> userData
+    - String currentUsername
+
+    + void createUser(String username, String password)
+    + boolean validateUser(String username, String password)
+}
+
+UserManager --> Menu
+
+class Menu {
+    - String currentUsername
+    + List<Media> mediaList
+
+    + void searchFilm()
+    + void sortByCategory()
+    + void showWatchedFilms()
+    + void showSavedFilms()
+    + List<Media> search(String query)
+}
+
+Menu --> FileIO
+
+class FileIO {
+    + List<Media> readMediaData(String path)
+    + void saveMediaData(List<Media>, String path, String header)
+    + HashMap<String, String> loadUserData(String path)
+    + void saveUserData(HashMap<String, String>, String path)
+}
+
+abstract class Media {
+    + String title
+    + String genre
+    + int releaseYear
+    + float rating
+
+}
+
+class Movie extends Media {
+    + int duration
+}
+
+class Series extends Media {
+    + int episodes
+    + int seasons
+}
+@enduml

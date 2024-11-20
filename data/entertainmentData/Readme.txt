@@ -1,4 +1,4 @@
-Verdens 100 bedste film (iflg. én imdb-liste) er gemt i filen film.txt. De står på hver sin linje i formatet: titel; årstal; kategori1, kategori2, ..; rating
+Verdens 100 bedste film (iflg. én imdb-liste) er gemt i filen movies.txt. De står på hver sin linje i formatet: titel; årstal; kategori1, kategori2, ..; rating
 Kategorierne er: Crime, Drama, Biography, Sport, History, Romance, War, Mystery, Adventure, Family, Fantasy, Thriller, Horror, Film-Noir, Action, Sci-fi, Comedy , Musical, Western og Music.
 
 Hvis I vil lave grafisk brugergrænseflade, kan I bruge de tilhørende filmplakater, som ligger her: https://drive.google.com/drive/folders/17i4ZASbQhiGGPXj09x-mD4CsrzQ2Pn2b?usp=sharing. De enkelte billeder er navngivet efter filmen.  
