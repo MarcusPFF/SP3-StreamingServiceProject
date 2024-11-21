@@ -1,40 +1,54 @@
 package StreamingProg;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
-    private String userName;
+    private String username;
+    private List<Media> mediaList;
 
-    public ArrayList<Media> mediaArrayList = new ArrayList<>();
-    public ArrayList<Movie> movieArrayList = new ArrayList<>();
-    public ArrayList<Series> seriesArrayList = new ArrayList<>();
+    Menu(String username, List<Media> mediaList) {
+        this.mediaList = new ArrayList<>();
+        this.username = username;
+    }
 
-    public static void searchFilm(String title){
+    public void searchFilm(String title) {
 
     } // Definer String title i anden klasse
 
-    public static void sortByCategory(String category) {
+    public void sortByCategory(String category) {
 
     } // Definer String category i anden klasse
 
-    public static void watchedFilms(String userName) {
+    public void watchedFilms(String username) {
+
+    } // Definer String username i anden klasse
+
+    public void savedFilms(String username) {
 
     } // Definer String userName i anden klasse
 
-    public static void savedFilms(String userName) {
+    public List<Media> searchMedia(String search) {
+        return mediaList;
+    }
 
-    } // Definer String userName i anden klasse
+    public void displayMenu() {
 
-    public ArrayList<Media> searchMovies(String search){
-        return mediaArrayList;
-    } // Skal denne return movieArraylist??
+    }
 
-    public static void displayMenu(){
+    public void populateMediaLists(List<Media> mediaList) {
 
-    } // Vi skal lave Menuclass før den her
+    }
 
+    public void addMedia(Media media) {
+        mediaList.add(media);
+    }
 
+    public void removeMedia(Media media) {
+        mediaList.remove(media);
+    }
 
-
-
+    public boolean isAdmin() {
+        return false;
+    }
 }

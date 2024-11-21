@@ -2,41 +2,53 @@
 !pragma layout smetana
 title Netflix Application Design
 
-' Hovedklasse
 class Main {
     + static void main(String[] args)
 }
 
-Main --> Netflix
+Main *-- Netflix
 
-' Netflix System
 class Netflix {
     - UserManager userManager
     - Menu menu
-
     + void runApplication()
 }
 
-Netflix --> UserManager
-Netflix --> Menu
-User --> UserManager
-' User Management
+Netflix *-- TextUI
+
+class TextUI {
+- Scanner scanner
+
++ void displayMsg(String s)
++ String promptText(String msg)
++ int promptNumeric (String msg)
++ int promptChoice(String msg, ArrayList<String> List)
++ boolean promptBinary(String msg)
+
+}
+Netflix *-- UserManager
+Netflix *-- Menu
+User --* UserManager
+
 class UserManager {
-    - HashMap<String, String> userData
+    - HashMap<String, User> userData
     - String username
     - boolean isAdmin
-
     + void createUser(String username, String password, boolean isAdmin)
     + boolean validateUser(String username, String password)
     + boolean isAdmin(String username)
+    + void getUserData(HashMap<String, User> userData)
+    + void setUserData()
+    + void getUsername(String username)
+    + void setUsername()
+    + boolean isAdmin()
+    + void setAdmin(boolean admin)
 }
 
-' User class to store user details, now within UserManager
 class User {
     - String username
     - String password
     - boolean isAdmin
-
     + User(String username, String password, boolean isAdmin)
     + String getUsername()
     + void setUsername(String username)
@@ -46,78 +58,61 @@ class User {
     + void setIsAdmin(boolean isAdmin)
 }
 
-UserManager <|-- FileIO
+UserManager *-- FileIO
 
 class FileIO {
-    + HashMap<String, String> loadUserData(String path)
-    + void saveUserData(HashMap<String, String>, String path)
+    + HashMap<String, User> loadUserData(String path)
+    + public void saveUserData(String path, HashMap<String, User> userData)
+    + List<Movie> readMovieData(String path)
+    + List<Series> readSeriesData(String path)
+
 }
 
-' Menu and Media
-class Menu {
+class Menu{
     - String username
     + List<Media> mediaList
-    + List<Movie> movieList
-    + List<Series> seriesList
-
     + void searchFilm(String title)
     + void sortByCategory(String category)
     + void watchedFilms(String username)
     + void savedFilms(String username)
-    + List<Media> searchMovies(String search)
+    + List<Media> searchMedia(String search)
     + void displayMenu()
-    ' Method to populate lists for movies and series
-    + void populateMediaLists(List<Media> allMedia)
-    ' Method to add media if user is admin
+    + void populateMediaLists(List<Media> mediaList)
     + void addMedia(Media media)
-    ' Check if the current user is an admin
+    + void removeMedia(Media media)
     + boolean isAdmin()
 }
 
-Menu <|-- Media
-
-abstract class Media {
-    + String title
-    + String genre
-    + int releaseYear
-    + float rating
-
+abstract class Media extends Menu {
+    - String title
+    - String genre
+    - int releaseYear
+    - float rating
     + String getTitle()
     + String getGenre()
     + int getReleaseYear()
     + float getRating()
-
     + void setTitle(String title)
     + void setGenre(String genre)
     + void setReleaseYear(int releaseYear)
     + void setRating(float rating)
 }
 
-' Specific Media Types
-class Movie {
-    + int duration
-    + List<Movie> readMovieData(String path)
+class Movie extends Media {
+    - int duration
     + void playMovie()
-
-    ' Getters and Setters for Movie attributes
     + int getDuration()
     + void setDuration(int duration)
 }
 
-class Series {
-    + int episodes
-    + int seasons
-    + List<Series> readSeriesData(String path)
+class Series extends Media{
+    - int episodes
+    - int seasons
     + void playEpisode(int episodeNumber)
-
-    ' Getters and Setters for Series attributes
     + int getEpisodes()
     + void setEpisodes(int episodes)
     + int getSeasons()
     + void setSeasons(int seasons)
 }
-
-Media <|-- Movie
-Media <|-- Series
 
 @enduml
