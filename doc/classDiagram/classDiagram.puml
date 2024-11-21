@@ -9,12 +9,13 @@ Main --> Netflix
 
 class Netflix {
 
++ void userManager()
++ void Menu()
+
 }
 
 Netflix --> UserManager
 UserManager --> Netflix
-
-
 
 class UserManager {
     - HashMap<String, String> userData
