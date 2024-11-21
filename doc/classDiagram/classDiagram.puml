@@ -7,7 +7,7 @@ class Main {
     + static void main(String[] args)
 }
 
-Main --> Netflix : starts >
+Main --> Netflix
 
 ' Netflix System
 class Netflix {
@@ -17,9 +17,9 @@ class Netflix {
     + void runApplication()
 }
 
-Netflix --> UserManager : manages >
-Netflix --> Menu : provides >
-
+Netflix --> UserManager
+Netflix --> Menu
+User --> UserManager
 ' User Management
 class UserManager {
     - HashMap<String, String> userData
@@ -31,7 +31,22 @@ class UserManager {
     + boolean isAdmin(String username)
 }
 
-UserManager <|-- FileIO : extends >
+' User class to store user details, now within UserManager
+class User {
+    - String username
+    - String password
+    - boolean isAdmin
+
+    + User(String username, String password, boolean isAdmin)
+    + String getUsername()
+    + void setUsername(String username)
+    + String getPassword()
+    + void setPassword(String password)
+    + boolean getIsAdmin()
+    + void setIsAdmin(boolean isAdmin)
+}
+
+UserManager <|-- FileIO
 
 class FileIO {
     + HashMap<String, String> loadUserData(String path)
@@ -59,7 +74,7 @@ class Menu {
     + boolean isAdmin()
 }
 
-Menu <|-- Media : manages >
+Menu <|-- Media
 
 abstract class Media {
     + String title
@@ -102,7 +117,7 @@ class Series {
     + void setSeasons(int seasons)
 }
 
-Media <|-- Movie : specialization >
-Media <|-- Series : specialization >
+Media <|-- Movie
+Media <|-- Series
 
 @enduml
