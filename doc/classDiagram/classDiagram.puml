@@ -4,62 +4,66 @@
 class Main {
     + static void main(String[] args)
 }
-Main --> LogonMenu
 
-class LogonMenu {
-    - String username
-    - String password
+Main --> Netflix
 
-    + void createUser()
-    + void loginCurrentUser(String username, String password)
+class Netflix {
+
 }
 
-LogonMenu --> UserManager
+Netflix --> UserManager
+UserManager --> Netflix
+
+
 
 class UserManager {
     - HashMap<String, String> userData
-    - String currentUsername
+    - String username
 
     + void createUser(String username, String password)
     + boolean validateUser(String username, String password)
 }
 
-UserManager --> Menu
+Netflix --> Menu
 
 class Menu {
-    - String currentUsername
-    + List<Media> mediaList
+    - String username
+    + List<AllMedia> mediaList
 
     + void searchFilm()
     + void sortByCategory()
-    + void showWatchedFilms()
-    + void showSavedFilms()
-    + List<Media> search(String query)
+    + void watchedFilms()
+    + void savedFilms()
+    + List<saveAllData> searchMovies(String search)
+
+    + List<String> saveMovieData(String path)
+    + List<String> saveSeriesData(String path)
+    + List<String> AllMedia(String path)
 }
 
-Menu --> FileIO
+class FileIO extends UserManager {
 
-class FileIO {
-    + List<Media> readMediaData(String path)
-    + void saveMediaData(List<Media>, String path, String header)
     + HashMap<String, String> loadUserData(String path)
     + void saveUserData(HashMap<String, String>, String path)
 }
 
-abstract class Media {
+abstract class Media extends Menu {
     + String title
     + String genre
     + int releaseYear
     + float rating
 
+
 }
 
 class Movie extends Media {
     + int duration
+    + List<movies> readMovieData(String path)
 }
 
 class Series extends Media {
     + int episodes
     + int seasons
+    + List<series> readSeriesData(String path)
 }
 @enduml
