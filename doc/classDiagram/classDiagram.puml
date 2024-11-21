@@ -1,69 +1,108 @@
 @startuml
 !pragma layout smetana
+title Netflix Application Design
 
+' Hovedklasse
 class Main {
     + static void main(String[] args)
 }
 
-Main --> Netflix
+Main --> Netflix : starts >
 
+' Netflix System
 class Netflix {
+    - UserManager userManager
+    - Menu menu
 
+    + void runApplication()
 }
 
-Netflix --> UserManager
-UserManager --> Netflix
+Netflix --> UserManager : manages >
+Netflix --> Menu : provides >
 
-
-
+' User Management
 class UserManager {
     - HashMap<String, String> userData
     - String username
+    - boolean isAdmin
 
-    + void createUser(String username, String password)
+    + void createUser(String username, String password, boolean isAdmin)
     + boolean validateUser(String username, String password)
+    + boolean isAdmin(String username)
 }
 
-Netflix --> Menu
+UserManager <|-- FileIO : extends >
 
-class Menu {
-    - String username
-    + List<AllMedia> mediaList
-
-    + void searchFilm()
-    + void sortByCategory()
-    + void watchedFilms()
-    + void savedFilms()
-    + List<saveAllData> searchMovies(String search)
-
-    + List<String> saveMovieData(String path)
-    + List<String> saveSeriesData(String path)
-    + List<String> AllMedia(String path)
-}
-
-class FileIO extends UserManager {
-
+class FileIO {
     + HashMap<String, String> loadUserData(String path)
     + void saveUserData(HashMap<String, String>, String path)
 }
 
-abstract class Media extends Menu {
+' Menu and Media
+class Menu {
+    - String username
+    + List<Media> mediaList
+    + List<Movie> movieList
+    + List<Series> seriesList
+
+    + void searchFilm(String title)
+    + void sortByCategory(String category)
+    + void watchedFilms(String username)
+    + void savedFilms(String username)
+    + List<Media> searchMovies(String search)
+    + void displayMenu()
+    ' Method to populate lists for movies and series
+    + void populateMediaLists(List<Media> allMedia)
+    ' Method to add media if user is admin
+    + void addMedia(Media media)
+    ' Check if the current user is an admin
+    + boolean isAdmin()
+}
+
+Menu <|-- Media : manages >
+
+abstract class Media {
     + String title
     + String genre
     + int releaseYear
     + float rating
 
+    + String getTitle()
+    + String getGenre()
+    + int getReleaseYear()
+    + float getRating()
 
+    + void setTitle(String title)
+    + void setGenre(String genre)
+    + void setReleaseYear(int releaseYear)
+    + void setRating(float rating)
 }
 
-class Movie extends Media {
+' Specific Media Types
+class Movie {
     + int duration
-    + List<movies> readMovieData(String path)
+    + List<Movie> readMovieData(String path)
+    + void playMovie()
+
+    ' Getters and Setters for Movie attributes
+    + int getDuration()
+    + void setDuration(int duration)
 }
 
-class Series extends Media {
+class Series {
     + int episodes
     + int seasons
-    + List<series> readSeriesData(String path)
+    + List<Series> readSeriesData(String path)
+    + void playEpisode(int episodeNumber)
+
+    ' Getters and Setters for Series attributes
+    + int getEpisodes()
+    + void setEpisodes(int episodes)
+    + int getSeasons()
+    + void setSeasons(int seasons)
 }
+
+Media <|-- Movie : specialization >
+Media <|-- Series : specialization >
+
 @enduml
