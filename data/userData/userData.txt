@@ -1,0 +1,4 @@
+UserName, Code, isAdmin
+jonathanKudsk; dshiufh3; True
+
+(UserName + "WatchedMovies.txt") = jonathanKudskWatchedMovies.txt
