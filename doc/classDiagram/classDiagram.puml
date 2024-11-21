@@ -4,6 +4,7 @@ title Netflix Application Design
 
 class Main {
     + static void main(String[] args)
+
 }
 
 Main *-- Netflix
