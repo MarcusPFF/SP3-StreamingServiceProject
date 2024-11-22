@@ -1,4 +1,2 @@
-UserName, Code, isAdmin
-jonathanKudsk; dshiufh3; True
-
-(UserName + "WatchedMovies.txt") = jonathanKudskWatchedMovies.txt
+Username, password, isAdmin
+jonathanKudsk; dshiufh3; true

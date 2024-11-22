@@ -31,11 +31,11 @@ Netflix *-- UserManager
 Netflix *-- Menu
 
 class UserManager {
-    - HashMap<String, User> userData
+    - HashMap<String, Integer> userData
     + void createUser(String username, String password, boolean isAdmin)
     + boolean validateUser(String username, String password)
-    + void HashMap<String, User> getUserData()
-    + void setUserData(HashMap<String, User> userData)
+    + void HashMap<String, Integer> getUserData()
+    + void setUserData(HashMap<String, Integer> userData)
     + void deleteUser(User user)
 
 }
