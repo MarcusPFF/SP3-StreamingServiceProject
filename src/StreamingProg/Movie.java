@@ -9,11 +9,11 @@ public class Movie extends Media {
         super(title, genre, releaseYear, rating);
         this.duration = duration;
     }
-}
+
     public void playMovie(){
+        System.out.println(getTitle() + " afspilles nu...");
 
     }
-
     public int getDuration() {
         return duration;
     }
@@ -22,3 +22,5 @@ public class Movie extends Media {
         this.duration = duration;
     }
 }
+
+

@@ -8,6 +8,11 @@ public abstract class Media extends Menu {
     protected int releaseYear;
     protected float rating;
 
+    Movie movie = new Movie();
+    Series series = new Series();
+
+
+
     public Media(String username, List<String> mediaList, String title, String genre, int releaseYear, float rating) {
         super(username, mediaList); //Her skal rettes, den finder ikke mediaList
         this.title = title;
@@ -15,7 +20,6 @@ public abstract class Media extends Menu {
         this.releaseYear = releaseYear;
         this.rating = rating;
     }
-}
 
     public String getTitle() {
         return title;
@@ -49,3 +53,4 @@ public abstract class Media extends Menu {
         this.rating = rating;
     }
 }
+

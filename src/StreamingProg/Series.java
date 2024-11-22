@@ -11,7 +11,6 @@ public class Series extends Media {
         this.episodes = episodes;
         this.seasons = seasons;
     }
-}
 
     public void playEpisode(int episodeNumber) {
 
@@ -33,3 +32,5 @@ public class Series extends Media {
         this.seasons = seasons;
     }
 }
+
+
