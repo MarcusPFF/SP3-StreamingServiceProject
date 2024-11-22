@@ -16,7 +16,7 @@ public class FileIO {
 
     }
 
-    //De her to skal rettes til
+
     public List<String> readMovieData(String path) {
         List<String> moviesList = new ArrayList<>();
         return moviesList;
