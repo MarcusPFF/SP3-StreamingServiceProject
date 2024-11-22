@@ -15,7 +15,7 @@ public abstract class Media extends Menu {
         this.releaseYear = releaseYear;
         this.rating = rating;
     }
-}
+
 
     public String getTitle() {
         return title;
