@@ -5,15 +5,15 @@ import java.util.List;
 public class Movie extends Media {
     private int duration;
 
-    public Movie(String username, List<String> mediaList, String title, String genre, int releaseYear, float rating, int duration) {
-        super(username, mediaList, title, genre, releaseYear, rating);
+    public Movie(String title, String genre, int releaseYear, float rating, int duration) {
+        super(title, genre, releaseYear, rating);
         this.duration = duration;
     }
 
-    public void playMovie() {
+    public void playMovie(){
+        System.out.println(getTitle() + " afspilles nu...");
 
     }
-
     public int getDuration() {
         return duration;
     }
@@ -22,3 +22,5 @@ public class Movie extends Media {
         this.duration = duration;
     }
 }
+
+

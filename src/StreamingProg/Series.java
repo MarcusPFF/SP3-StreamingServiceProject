@@ -32,3 +32,5 @@ public class Series extends Media {
         this.seasons = seasons;
     }
 }
+
+
