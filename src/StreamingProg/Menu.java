@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private String username;
-    private List<Media> mediaList;
+    protected String username;
+    protected List<String> mediaList;
 
-    Menu(String username, List<Media> mediaList) {
+    public Menu(String username, List<String> mediaList) {
         this.mediaList = new ArrayList<>();
         this.username = username;
     }
@@ -28,7 +28,7 @@ public class Menu {
 
     } // Definer String userName i anden klasse
 
-    public List<Media> searchMedia(String search) {
+    public List<String> searchMedia(String search) {
         return mediaList;
     }
 
@@ -36,16 +36,16 @@ public class Menu {
 
     }
 
-    public void populateMediaLists(List<Media> mediaList) {
+    public void populateMediaLists(List<String> mediaList) {
 
     }
 
     public void addMedia(Media media) {
-        mediaList.add(media);
+
     }
 
     public void removeMedia(Media media) {
-        mediaList.remove(media);
+
     }
 
     public boolean isAdmin() {

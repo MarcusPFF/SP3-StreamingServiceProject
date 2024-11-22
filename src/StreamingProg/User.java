@@ -5,11 +5,10 @@ public class User {
     private String password;
     private boolean isAdmin;
 
-    User(String username, String password, boolean isAdmin) {
+    public User(String username, String password, boolean isAdmin) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
-
     }
 
     public String getUsername() {
@@ -32,7 +31,7 @@ public class User {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

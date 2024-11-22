@@ -1,5 +1,7 @@
 package StreamingProg;
 
+import java.util.List;
+
 public class Series extends Media {
     private int episodes;
     private int seasons;
@@ -11,9 +13,10 @@ public class Series extends Media {
     }
 }
 
-    public void playEpisode(int episodeNumber){
+    public void playEpisode(int episodeNumber) {
 
     }
+
     public int getEpisodes() {
         return episodes;
     }

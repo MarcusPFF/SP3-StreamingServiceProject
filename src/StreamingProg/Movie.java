@@ -1,6 +1,8 @@
 package StreamingProg;
 
-public class Movie extends Media{
+import java.util.List;
+
+public class Movie extends Media {
     private int duration;
 
     public Movie(String title, String genre, int releaseYear, float rating, int duration) {
@@ -12,11 +14,11 @@ public class Movie extends Media{
 
     }
 
-    public int getDuration(){
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration){
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 }

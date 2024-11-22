@@ -2,11 +2,13 @@ package StreamingProg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FileIO {
 
     public HashMap<String, User> loadUserData(String path) {
         HashMap<String, User> userData = new HashMap<>();
+
         return userData;
     }
 
@@ -15,12 +17,21 @@ public class FileIO {
     }
 
     //De her to skal rettes til
-    public List<Movie> readMovieData(String path) {
-        List<Movie> moviesList = new ArrayList<>();
-        return Movie;
+    public List<String> readMovieData(String path) {
+        List<String> moviesList = new ArrayList<>();
+        return moviesList;
     }
 
-    public List<Series> readSeriesData(String path) {
-        List<Series> seriesList = new ArrayList<>();
+    public List<String> readSeriesData(String path) {
+        List<String> seriesList = new ArrayList<>();
+        return seriesList;
+    }
+
+    public void addMedia(){
+
+    }
+
+    public void removeMedia(){
+
     }
 }
