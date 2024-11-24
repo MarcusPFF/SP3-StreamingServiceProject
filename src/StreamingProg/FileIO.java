@@ -135,15 +135,13 @@ public class FileIO {
                     return;
                 }
 
+            case 2:
+                // samme kode som case1, men bare med seriesList
+
 
         }
-        case 2:
-        // samme kode som case1, men bare med seriesList
-
-
     }
 
     public void removeMedia() {
-
     }
 }
