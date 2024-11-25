@@ -22,7 +22,7 @@ public class Netflix {
     public void runApplication() {
         ArrayList<Media> Medias = new ArrayList<>();
         FileIO fileIO = new FileIO();
-        movieData = fileIO.readMovieData("entertainmentData\\movies.txt");
+        movieData = fileIO.readMovieData(fileIO.getMoviesDataPath());
 
         for (int i = 0; i < movieData.size(); i++) {
             String[] movieInfo = movieData.get(i).split(";");

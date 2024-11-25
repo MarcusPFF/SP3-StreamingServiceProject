@@ -142,6 +142,54 @@ public class FileIO {
         }
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUserDataPath() {
+        return userDataPath;
+    }
+
+    public void setUserDataPath(String userDataPath) {
+        this.userDataPath = userDataPath;
+    }
+
+    public String getMoviesDataPath() {
+        return moviesDataPath;
+    }
+
+    public void setMoviesDataPath(String moviesDataPath) {
+        this.moviesDataPath = moviesDataPath;
+    }
+
+    public String getSeriesDataPath() {
+        return seriesDataPath;
+    }
+
+    public void setSeriesDataPath(String seriesDataPath) {
+        this.seriesDataPath = seriesDataPath;
+    }
+
+    public List<String> getMoviesList() {
+        return moviesList;
+    }
+
+    public void setMoviesList(List<String> moviesList) {
+        this.moviesList = moviesList;
+    }
+
+    public List<String> getSeriesList() {
+        return seriesList;
+    }
+
+    public void setSeriesList(List<String> seriesList) {
+        this.seriesList = seriesList;
+    }
+
     public void removeMedia() {
     }
 
