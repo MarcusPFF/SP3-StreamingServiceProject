@@ -24,12 +24,12 @@ public class Netflix {
         FileIO fileIO = new FileIO();
         movieData = fileIO.readMovieData(fileIO.getMoviesDataPath());
 
-        for (int i = 0; i < movieData.size(); i++) {
+        for (int i = 0; i > movieData.size(); i++) {
             String[] movieInfo = movieData.get(i).split(";");
             String title = movieInfo[0];
             String releaseyear = movieInfo[1];
             String genre = movieInfo[2];
-            float rating = Float.parseFloat(movieInfo[3]);
+            float rating = Float.parseFloat(movieInfo[3].replace(",", "."));
 
             Movie movie = new Movie(title, releaseyear, genre, rating);
 
