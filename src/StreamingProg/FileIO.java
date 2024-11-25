@@ -12,9 +12,9 @@ import java.io.FileWriter;
 public class FileIO {
     //Ret String path til userDataPath, moviesDataPath, seriesDataPath inde i plantUML
     private User user;
-    private String userDataPath = "data/userData/userData.txt";
-    private String moviesDataPath = "data/moviesData/movies.txt";
-    private String seriesDataPath = "data/seriesData/series.txt";
+    private String userDataPath = "data\\userData\\userData.txt";
+    private String moviesDataPath = "data\\entertainmentData\\movies.txt";
+    private String seriesDataPath = "data\\entertainmentData\\series.txt";
     private List<String> moviesList;
     private List<String> seriesList;
 

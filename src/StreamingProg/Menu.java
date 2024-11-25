@@ -80,6 +80,7 @@ public class Menu {
         }
     }
 
+
     public void watchedFilms() {
         System.out.println("Watched movies and series:");
         for (Media media : user.getWatchedFilms()) {

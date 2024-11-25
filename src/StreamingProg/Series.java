@@ -6,10 +6,8 @@ public class Series extends Media {
     private int episodes;
     private int seasons;
 
-    public Series(String username, List<String> mediaList, String title, String genre, int releaseYear, float rating, int episodes, int seasons) {
-        super(username, mediaList, title, genre, releaseYear, rating);
-        this.episodes = episodes;
-        this.seasons = seasons;
+    public Series(String title, String releaseYear, String genre, float rating) {
+        super(title, releaseYear, genre, rating);
     }
 
     public void playEpisode(int episodeNumber) {
