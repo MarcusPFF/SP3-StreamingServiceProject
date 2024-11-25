@@ -51,7 +51,7 @@ public class FileIO {
             }
         } catch (FileNotFoundException e) {
             //Vi skal bruge displayMsg funktionen her
-            System.out.println("Ingen fil fundet");
+            System.out.println("Ingen fil fundet på stien: " + userDataPath);
         }
         return userData;
     }
@@ -88,7 +88,6 @@ public class FileIO {
         } catch (FileNotFoundException e) {
             System.out.println("Ingen fil fundet på stien: " + moviesDataPath);
         }
-
         return moviesList;
     }
 
@@ -135,7 +134,6 @@ public class FileIO {
 
             case 2:
                 // samme kode som case1, men bare med seriesList
-
 
         }
     }
