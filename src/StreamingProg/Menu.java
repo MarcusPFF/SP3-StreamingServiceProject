@@ -80,6 +80,7 @@ public class Menu {
         }
     }
 
+
     public void watchedFilms() {
         ui.displayMsg("Watched movies and series:");
         for (Media media : user.getWatchedFilms()) {

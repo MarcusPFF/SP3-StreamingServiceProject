@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Netflix {
 
+    List<String> movieData;
+
     UserManager userManager;
     Menu menu;
     TextUI ui;
@@ -16,18 +18,18 @@ public class Netflix {
         this.ui = ui;
     }
 
-
+    public Netflix() {}
     public void runApplication() {
         ArrayList<Media> Medias = new ArrayList<>();
         FileIO fileIO = new FileIO();
-        List<String> movieData = fileIO.readMovieData("entertainmentData\\movies.txt");
+        movieData = fileIO.readMovieData(fileIO.getMoviesDataPath());
 
-        for (int i = 0; i < movieData.size(); i++) {
+        for (int i = 0; i > movieData.size(); i++) {
             String[] movieInfo = movieData.get(i).split(";");
             String title = movieInfo[0];
             String releaseyear = movieInfo[1];
             String genre = movieInfo[2];
-            float rating = Float.parseFloat(movieInfo[3]);
+            float rating = Float.parseFloat(movieInfo[3].replace(",", "."));
 
             Movie movie = new Movie(title, releaseyear, genre, rating);
 
@@ -35,6 +37,11 @@ public class Netflix {
 
         }
     }
+
+    public List<String> getMovieData() {
+        return movieData;
+    }
+
 
     public void runUserManager() {
         UserManager userManager = new UserManager();

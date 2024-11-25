@@ -4,10 +4,10 @@ import java.util.List;
 public abstract class Media {
     protected String title;
     protected String genre;
-    protected int releaseYear;
+    protected String releaseYear;
     protected float rating;
 
-    public Media(String title, int releaseYear, String genre, float rating) {
+    public Media(String title, String releaseYear, String genre, float rating) {
 
         this.title = title;
         this.genre = genre;
@@ -31,11 +31,11 @@ public abstract class Media {
         this.genre = genre;
     }
 
-    public int getReleaseYear() {
+    public String getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(int releaseYear) {
+    public void setReleaseYear(String releaseYear) {
         this.releaseYear = releaseYear;
     }
 

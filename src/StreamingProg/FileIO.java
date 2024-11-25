@@ -13,15 +13,14 @@ public class FileIO {
     //Ret String path til userDataPath, moviesDataPath, seriesDataPath inde i plantUML
     private User user;
     private String userDataPath = "data/userData/userData.txt";
-    private String moviesDataPath = "data/moviesData/movies.txt";
-    private String seriesDataPath = "data/seriesData/series.txt";
+    private String moviesDataPath = "data/entertainmentData/movies.txt";
+    private String seriesDataPath = "data/entertainmentData/series.txt";
     private List<String> moviesList;
     private List<String> seriesList;
 
     public FileIO() {
-
+        
     }
-
     public FileIO(User user, String userDataPath, String moviesDataPath, String seriesDataPath, List<String> moviesList, List<String> seriesList) {
         this.user = user;
         this.userDataPath = userDataPath;
@@ -140,6 +139,54 @@ public class FileIO {
                 // samme kode som case1, men bare med seriesList
 
         }
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUserDataPath() {
+        return userDataPath;
+    }
+
+    public void setUserDataPath(String userDataPath) {
+        this.userDataPath = userDataPath;
+    }
+
+    public String getMoviesDataPath() {
+        return moviesDataPath;
+    }
+
+    public void setMoviesDataPath(String moviesDataPath) {
+        this.moviesDataPath = moviesDataPath;
+    }
+
+    public String getSeriesDataPath() {
+        return seriesDataPath;
+    }
+
+    public void setSeriesDataPath(String seriesDataPath) {
+        this.seriesDataPath = seriesDataPath;
+    }
+
+    public List<String> getMoviesList() {
+        return moviesList;
+    }
+
+    public void setMoviesList(List<String> moviesList) {
+        this.moviesList = moviesList;
+    }
+
+    public List<String> getSeriesList() {
+        return seriesList;
+    }
+
+    public void setSeriesList(List<String> seriesList) {
+        this.seriesList = seriesList;
     }
 
     public void removeMedia() {
