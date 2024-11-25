@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 public class FileIO {
+    //Ret String path til userDataPath, moviesDataPath, seriesDataPath inde i plantUML
     private User user;
     private String userDataPath = "data/userData/userData.txt";
     private String moviesDataPath = "data/moviesData/movies.txt";
@@ -56,9 +57,6 @@ public class FileIO {
     }
 
     public void saveUserData(String userDataPath, HashMap<String, Integer> userData) {
-        if (userDataPath == null || userDataPath.isEmpty()) {
-            userDataPath = "data/userData/";
-        }
         File file = new File(userDataPath);
         String username = user.getUsername();
         String fileName = userDataPath + username + "_watchedMovies.txt";
