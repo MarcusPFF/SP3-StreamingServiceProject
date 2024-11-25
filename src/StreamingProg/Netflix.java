@@ -32,6 +32,7 @@ public class Netflix {
             Movie movie = new Movie(title, releaseyear, genre, rating);
 
             movieData.add(movieInfo[4]);
+
         }
     }
 
