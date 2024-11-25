@@ -1,4 +1,4 @@
-@startuml
+x@startuml
 !pragma layout smetana
 title Netflix Application Design
 

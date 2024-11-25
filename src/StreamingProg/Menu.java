@@ -8,7 +8,7 @@ public class Menu {
     protected String username;
     protected List<Media> mediaList;
     private User user;
-    TextUI textUI = new TextUI();
+    TextUI ui = new TextUI();
 
     public Menu(String username, List<Media> mediaList, User user) {
         this.mediaList = new ArrayList<>(mediaList);
@@ -19,23 +19,23 @@ public class Menu {
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Press 1. Search for a movie or series");
-            System.out.println("Press 2. Search for movies or series in categories");
-            System.out.println("Press 3. See list of watched movies and series");
-            System.out.println("Press 4. See list of saved movies and series");
-            System.out.println("Press 5. Play Movie");
-            System.out.println("Press 6. Log out");
+            ui.displayMsg("Press 1. Search for a movie or series");
+            ui.displayMsg("Press 2. Search for movies or series in categories");
+            ui.displayMsg("Press 3. See list of watched movies and series");
+            ui.displayMsg("Press 4. See list of saved movies and series");
+            ui.displayMsg("Press 5. Play Movie");
+            ui.displayMsg("Press 6. Log out");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
                 case 1:
-                    textUI.displayMsg("Type the movie's name:");
+                    ui.displayMsg("Type the movie's name:");
                     String title = scanner.nextLine();
                     searchFilm(title);
                     break;
                 case 2:
-                    textUI.displayMsg("Type category:");
+                    ui.displayMsg("Type category:");
                     String category = scanner.nextLine();
                     sortByCategory(category);
                     break;
@@ -49,10 +49,10 @@ public class Menu {
                     playMovie();
                     break;
                 case 6:
-                    textUI.displayMsg("Logging Out...");
+                    ui.displayMsg("Logging Out...");
                     return;
                 default:
-                    textUI.displayMsg("Invalid choice");
+                    ui.displayMsg("Invalid choice");
             }
         }
     }
@@ -60,42 +60,42 @@ public class Menu {
     public void searchFilm(String title) {
         for (Media media : mediaList) {
             if (media.getTitle().equalsIgnoreCase(title)) {
-                System.out.println("Movie found: " + media.getTitle());
+                ui.displayMsg("Movie found: " + media.getTitle());
                 return;
             }
         }
-        System.out.println("Movie not found");
+        ui.displayMsg("Movie not found");
     }
 
     public void sortByCategory(String category) {
         boolean found = false;
         for (Media media : mediaList) {
             if (media.getGenre().equalsIgnoreCase(category)) {
-                System.out.println(media);
+                ui.displayMsg(media);
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("No movies found in category: " + category);
+            ui.displayMsg("No movies found in category: " + category);
         }
     }
 
     public void watchedFilms() {
-        System.out.println("Watched movies and series:");
+        ui.displayMsg("Watched movies and series:");
         for (Media media : user.getWatchedFilms()) {
-            System.out.println(media);
+            ui.displayMsg(media);
         }
     }
 
     public void savedFilms() {
-        System.out.println("Saved movies and series:");
+        ui.displayMsg("Saved movies and series:");
         for (Media media : user.getSavedFilms()) {
-            System.out.println(media);
+            ui.displayMsg(media);
         }
     }
 
     public void playMovie() {
-        System.out.println("Playing movie...");
+        ui.displayMsg("Playing movie...");
     }
 
     public void addMedia(Media media) {
