@@ -1,20 +1,14 @@
 package StreamingProg;
-
 import java.util.List;
 
-public abstract class Media extends Menu {
+public abstract class Media {
     protected String title;
     protected String genre;
     protected int releaseYear;
     protected float rating;
 
-    Movie movie = new Movie();
-    Series series = new Series();
+    public Media(String title, int releaseYear, String genre, float rating) {
 
-
-
-    public Media(String username, List<String> mediaList, String title, String genre, int releaseYear, float rating) {
-        super(username, mediaList); //Her skal rettes, den finder ikke mediaList
         this.title = title;
         this.genre = genre;
         this.releaseYear = releaseYear;

@@ -18,6 +18,10 @@ public class FileIO {
     private List<String> moviesList;
     private List<String> seriesList;
 
+    public FileIO() {
+
+    }
+
     public FileIO(User user, String userDataPath, String moviesDataPath, String seriesDataPath, List<String> moviesList, List<String> seriesList) {
         this.user = user;
         this.userDataPath = userDataPath;
