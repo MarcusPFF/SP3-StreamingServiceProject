@@ -16,6 +16,9 @@ public class Menu {
         this.user = user;
     }
 
+    public Menu(){
+
+    }
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {

@@ -37,6 +37,10 @@ public class UserManager {
         }
     }
 
+    public HashMap<String, User> getUserData() {
+        return userData;
+    }
+
     public void deleteUser(String username) {
         if (userData.containsKey(username)) {
             userData.remove(username);
