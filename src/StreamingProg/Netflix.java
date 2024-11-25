@@ -69,9 +69,20 @@ public class Netflix {
 
                     userManager.validateUser(validUsername, validatePassword);
                     break;
-                    case 3:
-            }
+                case 3:
+                    ui.displayMsg("Skriv det brugernavn du vil slette");
+                    String deleteUsername = scanner.nextLine();
+                    userManager.deleteUser(deleteUsername);
+                    break;
+                case 4:
+                    ui.displayMsg("Lukker ned...");
+                    running = false;
+                    break;
 
+                default:
+                    ui.displayMsg("Forkert input. Prøv igen");
+            }
         }
+        scanner.close();
     }
 }
