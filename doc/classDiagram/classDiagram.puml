@@ -74,6 +74,7 @@ class Menu{
     + void sortByCategory(String category)
     + void watchedFilms(String username)
     + void savedFilms(String username)
+    + void playMovie()
     + List<String> searchMedia(String search)
     + void displayMenu()
     + void populateMediaLists(List<String> mediaList)
