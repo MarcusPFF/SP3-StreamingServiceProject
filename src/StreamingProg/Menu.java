@@ -71,7 +71,7 @@ public class Menu {
         boolean found = false;
         for (Media media : mediaList) {
             if (media.getGenre().equalsIgnoreCase(category)) {
-                ui.displayMsg(media);
+                System.out.println(media);
                 found = true;
             }
         }
@@ -84,14 +84,14 @@ public class Menu {
     public void watchedFilms() {
         ui.displayMsg("Watched movies and series:");
         for (Media media : user.getWatchedFilms()) {
-            ui.displayMsg(media);
+            System.out.println(media);
         }
     }
 
     public void savedFilms() {
         ui.displayMsg("Saved movies and series:");
         for (Media media : user.getSavedFilms()) {
-            ui.displayMsg(media);
+            System.out.println(media);
         }
     }
 

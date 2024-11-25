@@ -1,4 +1,5 @@
 package StreamingProg;
+
 import java.util.List;
 
 public abstract class Media {
@@ -45,6 +46,11 @@ public abstract class Media {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }
 
