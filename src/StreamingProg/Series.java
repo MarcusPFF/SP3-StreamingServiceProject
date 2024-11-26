@@ -1,7 +1,5 @@
 package StreamingProg;
 
-import java.util.List;
-
 public class Series extends Media {
     private int episodes;
     private int seasons;
@@ -10,10 +8,7 @@ public class Series extends Media {
         super(title, releaseYear, genre, rating);
     }
 
-    public void playEpisode(int episodeNumber) {
-
-    }
-
+    // Getters and Setters for episodes and seasons
     public int getEpisodes() {
         return episodes;
     }
@@ -29,6 +24,17 @@ public class Series extends Media {
     public void setSeasons(int seasons) {
         this.seasons = seasons;
     }
+
+    @Override
+    public void play() {
+        System.out.println("Playing series: " + getTitle());
+    }
+
+    public void playEpisode(int episodeNumber) {
+        if (episodeNumber <= 0 || episodeNumber > episodes) {
+            System.out.println("Invalid episode number.");
+        } else {
+            System.out.println("Playing episode " + episodeNumber + " of series: " + getTitle());
+        }
+    }
 }
-
-

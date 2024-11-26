@@ -1,41 +1,36 @@
 package StreamingProg;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager {
-    private TextUI ui;
-    FileIO io;
-    public List<User> userData = new ArrayList<>();
+    private final TextUI ui;
+    private final List<User> userData;
 
     public UserManager() {
         this.ui = new TextUI();
+        this.userData = new ArrayList<>();
     }
 
-    // Opretter en bruger og tilføjer den til listen
+    public void setUserData(List<User> users) {
+        userData.clear();
+        userData.addAll(users);
+    }
+
+    public List<User> getUserData() {
+        return userData;
+    }
+
     public void createUser(User user) {
         userData.add(user);
-        ui.displayMsg("User created: " + user.getUsername());
+        ui.displayMsg("Bruger oprettet: " + user.getUsername());
     }
 
-    // Validerer brugerens login
     public boolean validateUser(String username, String password) {
-        // Ensure userData is initialized
-        if (userData == null || userData.isEmpty()) {
-            ui.displayMsg("Ingen brugere tilgængelige for validering.");
-            return false
-        }
-
-        // Check if the username exists
         for (User user : userData) {
             if (user.getUsername().equalsIgnoreCase(username)) {
-                // Check the password for the matching username
                 if (user.getPassword().equals(password)) {
-                    ui.displayMsg("Det lykkedes at logge dig ind " + username);
-                    if (user.isAdmin()) {
-                        // Her skal du bruge din displayMsg funktion
-                        System.out.println("Bruger: " + username + " har admin rettigheder");
-                    }
+                    ui.displayMsg("Login succesfuldt: " + username);
                     return true;
                 } else {
                     ui.displayMsg("Forkert password.");
@@ -43,18 +38,11 @@ public class UserManager {
                 }
             }
         }
-
-        // If no matching username was found
         ui.displayMsg("Brugernavnet findes ikke.");
         return false;
     }
 
-    // Sletter en bruger
-    public List<User> deleteUser(String username) {
-        for (User user : userData) {
-            userData.remove(user);
-            ui.displayMsg("User removed: " + user.getUsername());
-        }
-        return userData;
+    public boolean deleteUser(String username) {
+        return userData.removeIf(user -> user.getUsername().equalsIgnoreCase(username));
     }
 }
