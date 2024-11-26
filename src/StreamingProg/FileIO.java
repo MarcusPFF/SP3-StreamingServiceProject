@@ -49,11 +49,7 @@ public class FileIO {
                     User user = new User(username, password, isAdmin);
                     userData.add(user);
 
-                    // Hvis brugeren er admin, vis en meddelelse
-                    if (isAdmin) {
-                        // Her skal du bruge din displayMsg funktion
-                        System.out.println("Bruger: " + username + " har admin rettigheder");
-                    }
+
                 }
             }
             scanner.close();

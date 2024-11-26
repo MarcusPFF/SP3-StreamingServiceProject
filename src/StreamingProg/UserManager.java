@@ -20,17 +20,36 @@ public class UserManager {
 
     // Validerer brugerens login
     public boolean validateUser(String username, String password) {
+        // Ensure userData is initialized
+        if (userData == null || userData.isEmpty()) {
+            ui.displayMsg("Ingen brugere tilgængelige for validering.");
+            return false;
+        }
+
+        // Check if the username exists
         for (User user : userData) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                ui.displayMsg("Det lykkedes at logge dig ind " + username);
-                return true;
-            } else {
-                ui.displayMsg("Forkert password");
-                return false;
+            if (user.getUsername().equalsIgnoreCase(username)) {
+                // Check the password for the matching username
+                if (user.getPassword().equals(password)) {
+                    ui.displayMsg("Det lykkedes at logge dig ind " + username);
+                    if (user.isAdmin()) {
+                        // Her skal du bruge din displayMsg funktion
+                        System.out.println("Bruger: " + username + " har admin rettigheder");
+                    }
+                    return true;
+                } else {
+                    ui.displayMsg("Forkert password.");
+                    return false;
+                }
             }
         }
+
+        // If no matching username was found
+        ui.displayMsg("Brugernavnet findes ikke.");
         return false;
     }
+
+
 
 
     // Sletter en bruger

@@ -35,6 +35,7 @@ public class Netflix {
 
     public void runUserManager() {
         Scanner scanner = new Scanner(System.in);
+
         boolean running = true;
         while (running) {
             ui.displayMsg("--Vælg en mulighed--");
@@ -80,6 +81,7 @@ public class Netflix {
 
                 case 2: {
                     ui.displayMsg("Login");
+                    io.loadUserData("data/userData/userData.csv");
                     String username = ui.promptText("Skriv brugernavn");
                     String password = ui.promptText("Skriv password");
                     boolean answer = um.validateUser(username, password);
@@ -92,43 +94,42 @@ public class Netflix {
                     break;
                 }
 
+                case 3: {
+                    ui.displayMsg("Slet bruger");
+                    String username = ui.promptText("Skriv det brugernavn, du vil slette");
+                    um.deleteUser(username);  // Sletter bruger fra listen
+                    try (FileWriter writer = new FileWriter("data/userData/userData.csv")) {
+                        String header = "Username, Password, isAdmin";
+                        writer.write(header + "\n");
 
-            case 3: {
-                ui.displayMsg("Slet bruger");
-                String username = ui.promptText("Skriv det brugernavn, du vil slette");
-                um.deleteUser(username);  // Sletter bruger fra listen
-                try (FileWriter writer = new FileWriter("data/userData/userData.csv")) {
-                    String header = "Username, Password, isAdmin";
-                    writer.write(header + "\n");
-
-                    for (User user : userData) {
-                        String userInfo = user.getUsername() + ", " + user.getPassword() + ", " + user.isAdmin();
-                        writer.write(userInfo + "\n");
+                        for (User user : userData) {
+                            String userInfo = user.getUsername() + ", " + user.getPassword() + ", " + user.isAdmin();
+                            writer.write(userInfo + "\n");
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong when writing to the file.");
                     }
-                } catch (IOException e) {
-                    System.out.println("Something went wrong when writing to the file.");
+                    break;
                 }
-                break;
-            }
 
-            case 4: {
-                ui.displayMsg("Vis alle brugere:");
-                io.loadUserData("data/userData/userData.csv");
-                break;
-            }
+                case 4: {
+                    ui.displayMsg("Vis alle brugere:");
+                    io.loadUserData("data/userData/userData.csv");
+                    break;
+                }
 
 
-            case 5: {
-                ui.displayMsg("Luk programmet ned");
-                ui.displayMsg("Lukker ned...");
-                running = false;
-                break;
-            }
+                case 5: {
+                    ui.displayMsg("Luk programmet ned");
+                    ui.displayMsg("Lukker ned...");
+                    running = false;
+                    break;
+                }
 
-            default: {
-                ui.displayMsg("Forkert input. Prøv igen");
+                default: {
+                    ui.displayMsg("Forkert input. Prøv igen");
+                }
             }
         }
     }
-}
 }
