@@ -46,8 +46,8 @@ public class Netflix {
 
 
     public void runUserManager() {
-        TextUI ui = new TextUI();
         Scanner scanner = new Scanner(System.in);
+        TextUI ui = new TextUI();
         boolean running = true;
         while (running) {
             ui.displayMsg(" Vælg en mulighed: ");
@@ -65,7 +65,7 @@ public class Netflix {
                     ui.displayMsg("Lav ny bruger");
                     String username = ui.promptText("Skriv dit brugernavn");
                     String password = ui.promptText("Skriv password");
-                    boolean isAdmin = ui.promptBinary("Skal brugeren være admin? True / False");
+                    boolean isAdmin = ui.promptBinary("Skal brugeren være admin? Y/N");
                     userManager.createUser(username, password, isAdmin);
                     break;
                 }
