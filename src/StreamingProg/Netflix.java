@@ -59,7 +59,7 @@ public class Netflix {
         ui.displayMsg("Lav ny bruger");
         String username = ui.promptText("Skriv dit brugernavn:");
         String password = ui.promptText("Skriv password:");
-        boolean isAdmin = ui.promptBinary("Skal brugeren være admin? (Y/N):");
+        boolean isAdmin = ui.promptBinary("Skal brugeren være admin?");
 
         User newUser = new User(username, password, isAdmin);
         um.createUser(newUser);
