@@ -3,31 +3,36 @@ package StreamingProg;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.io.FileWriter;
 
 public class FileIO {
     //Ret String path til userDataPath, moviesDataPath, seriesDataPath inde i plantUML
     private User user;
     private String userDataPath = "data/userData/userData.txt";
+    private String watchedMoviesDataPath = "data/watchedMovies/";
+    private String favoritesDataPath = "data/favorites/";
     private String moviesDataPath = "data/entertainmentData/movies.txt";
     private String seriesDataPath = "data/entertainmentData/series.txt";
     private List<String> moviesList;
     private List<String> seriesList;
+    private List<String> favoritesList;
+    private TextUI ui;
+    private UserManager um;
+    private HashMap<String, User> userData;
+
 
     public FileIO() {
-        
-    }
-    public FileIO(User user, String userDataPath, String moviesDataPath, String seriesDataPath, List<String> moviesList, List<String> seriesList) {
         this.user = user;
         this.userDataPath = userDataPath;
         this.moviesDataPath = moviesDataPath;
         this.seriesDataPath = seriesDataPath;
-        this.moviesList = moviesList;
-        this.seriesList = seriesList;
+        this.moviesList = new ArrayList<>();
+        this.seriesList = new ArrayList<>();
+        this.favoritesList = new ArrayList<>();
+        this.ui = new TextUI();
+        this.um = new UserManager();
+        this.userData = um.getUserData();
     }
 
     public HashMap<String, Integer> loadUserData(String userDataPath) {
@@ -59,10 +64,10 @@ public class FileIO {
         return userData;
     }
 
-    public void saveUserData(String userDataPath, HashMap<String, Integer> userData) {
-        File file = new File(userDataPath);
+    public void saveUserData(String watchedMoviesDataPath, HashMap<String, Integer> userData) {
+        File file = new File(watchedMoviesDataPath);
         String username = user.getUsername();
-        String fileName = userDataPath + username + "_watchedMovies.txt";
+        String fileName = watchedMoviesDataPath + username + "_watchedMovies.txt";
 
         try (FileWriter writer = new FileWriter(fileName)) {
             for (String keys : userData.keySet()) {
@@ -77,8 +82,7 @@ public class FileIO {
     }
 
     public List<String> readMovieData(String moviesDataPath) {
-
-        List<String> moviesList = new ArrayList<>();
+        moviesList = new ArrayList<>();
         File file = new File(moviesDataPath);
 
         try (Scanner scan = new Scanner(file)) {
@@ -113,33 +117,100 @@ public class FileIO {
     }
 
     public void addMedia() {
+        List<String> favoritesList = new ArrayList<>();
 
-        Scanner scanner = new Scanner(System.in);
-
-        //displayMsg funktion her
-        System.out.println("Skriv 1 for film, 2 for serier");
-        int choice = Integer.parseInt(scanner.nextLine());
-        scanner.close();
+        int choice = ui.promptNumeric("Skriv 1 for film, 2 for serier");
         switch (choice) {
             case 1:
-                //displayMsg funktion her
-                System.out.println("Media du kan tilføje til dine favoritter");
+                ui.displayMsg("Medier du kan tilføje til dine favoritter:");
                 for (int i = 0; i < moviesList.size(); i++) {
-                    System.out.println((i + 1) + ". " + moviesList.get(i));
+                    ui.displayMsg((i + 1) + ". " + moviesList.get(i));
                 }
-                //displayMsg funktion her
-                System.out.println("Skriv nummeret på filmen du gerne vil tilføje til dine favoritter");
-                int movieChoice = Integer.parseInt(scanner.nextLine());
+                int movieChoice = ui.promptNumeric("Skriv nummeret på filmen du gerne vil tilføje til dine favoritter");
                 if (movieChoice < 1 || movieChoice > moviesList.size()) {
-                    System.out.println("Fejl. Du skal vælge et tal som er gyldigt.");
+                    ui.displayMsg("Fejl. Du skal vælge et tal som er gyldigt.");
                     return;
                 }
+                favoritesList.add(moviesList.get(movieChoice - 1));
+                break;
 
             case 2:
-                // samme kode som case1, men bare med seriesList
+                ui.displayMsg("Medier du kan tilføje til dine favoritter:");
+                for (int i = 0; i < seriesList.size(); i++) {
+                    ui.displayMsg((i + 1) + ". " + seriesList.get(i));
+                }
+                int seriesChoice = ui.promptNumeric("Skriv nummeret på serien du gerne vil tilføje til dine favoritter");
+                if (seriesChoice < 1 || seriesChoice > seriesList.size()) {
+                    ui.displayMsg("Fejl. Du skal vælge et tal som er gyldigt.");
+                    return;
+                }
+                favoritesList.add(seriesList.get(seriesChoice - 1));
+                break;
 
+            default:
+                ui.displayMsg("Ugyldigt valg. Prøv igen.");
+                return;
+        }
+
+        saveFavoritesToFile(favoritesList);
+    }
+
+    public void removeMedia() {
+        if (favoritesList.isEmpty()) {
+            System.out.println("Du har ingen favoritter at fjerne.");
+            return;
+        }
+
+        System.out.println("Dine favoritter:");
+        for (int i = 0; i < favoritesList.size(); i++) {
+            System.out.println((i + 1) + ". " + favoritesList.get(i));
+        }
+
+        int choice = ui.promptNumeric("Skriv nummeret på den favorit, du vil fjerne:");
+        if (choice < 1 || choice > favoritesList.size()) {
+            System.out.println("Fejl. Du skal vælge et tal som er gyldigt.");
+            removeMedia();
+        }
+
+        String removedMedia = favoritesList.remove(choice - 1);
+        System.out.println(removedMedia + " er blevet fjernet fra dine favoritter.");
+
+        saveFavoritesToFile(favoritesList);
+    }
+
+
+    public void saveFavoritesToFile(List<String> favoritesList) {
+        File file = new File(favoritesDataPath);
+        String username = user.getUsername();
+        String fileName = favoritesDataPath + username + "favoriteMedias.txt";
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (String favorite : favoritesList) {
+                writer.write(favorite + "\n");
+            }
+            ui.displayMsg("Favoritter gemt i " + fileName);
+        } catch (IOException e) {
+            ui.displayMsg("Der opstod en fejl under skrivning til filen: " + e.getMessage());
         }
     }
+
+    public void saveUserToFile(HashMap<String, User> userData) {
+
+        try (FileWriter writer = new FileWriter(userDataPath)) {
+            for (Map.Entry<String, User> entry : userData.entrySet()) {
+                String username = entry.getKey(); // Nøglen fra HashMap (brugernavn)
+                User user = entry.getValue();    // Værdien fra HashMap (User-objekt)
+
+                writer.write(  username + ";" + user + "\n");
+            }
+            writer.close();
+
+            ui.displayMsg("Brugere gemt i " + userDataPath);
+        } catch (IOException e) {
+            ui.displayMsg("Der opstod en fejl under skrivning til filen: " + e.getMessage());
+        }
+    }
+
+
 
     public User getUser() {
         return user;
@@ -174,6 +245,9 @@ public class FileIO {
     }
 
     public List<String> getMoviesList() {
+        if (moviesList == null) {
+            System.out.println("Filmenes liste er tom. Har du læst dataene?");
+        }
         return moviesList;
     }
 
@@ -189,7 +263,5 @@ public class FileIO {
         this.seriesList = seriesList;
     }
 
-    public void removeMedia() {
-    }
 
 }

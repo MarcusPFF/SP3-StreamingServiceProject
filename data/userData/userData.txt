@@ -1,2 +1,0 @@
-Username, password, isAdmin
-jonathanKudsk; dshiufh3; true
