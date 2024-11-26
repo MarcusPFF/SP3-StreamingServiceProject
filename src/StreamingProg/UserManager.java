@@ -1,52 +1,44 @@
 package StreamingProg;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class UserManager {
-    private HashMap<String, User> userData;
     private TextUI ui;
+    FileIO io;
+    public List<User> userData = new ArrayList<>();
 
     public UserManager() {
-        this.userData = new HashMap<>();
         this.ui = new TextUI();
     }
 
-    public void createUser(String username, String password, boolean isAdmin) {
-        if (userData.containsKey(username)) {
-            ui.displayMsg("Den her bruger findes allerede");
-        } else {
-            User user = new User(username, password, isAdmin);
-            userData.put(username, user);
-            ui.displayMsg("User created: " + username);
-        }
+    // Opretter en bruger og tilføjer den til listen
+    public void createUser(User user) {
+        userData.add(user);
+        ui.displayMsg("User created: " + user.getUsername());
     }
 
+    // Validerer brugerens login
     public boolean validateUser(String username, String password) {
-        User user = userData.get(username);
-        if (user == null) {
-            ui.displayMsg("Det lykkedes ikke at logge dig ind " + username);
-            return false;
+        for (User user : userData) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                ui.displayMsg("Det lykkedes at logge dig ind " + username);
+                return true;
+            } else {
+                ui.displayMsg("Forkert password");
+                return false;
+            }
         }
-
-        if (user.getPassword().equals(password)) {
-            ui.displayMsg("Det lykkedes at logge dig ind " + username);
-            return true;
-        } else {
-            ui.displayMsg("Det lykkedes ikke at logge dig ind " + username);
-            return false;
-        }
+        return false;
     }
 
-    public HashMap<String, User> getUserData() {
+
+    // Sletter en bruger
+    public List<User> deleteUser(String username) {
+        for (User user : userData) {
+            userData.remove(user);
+            ui.displayMsg("User removed: " + user.getUsername());
+        }
         return userData;
-    }
-
-    public void deleteUser(String username) {
-        if (userData.containsKey(username)) {
-            userData.remove(username);
-            ui.displayMsg("Bruger fjernet: " + username);
-        } else {
-            ui.displayMsg("Fejl: Bruger findes ikke");
-        }
     }
 }

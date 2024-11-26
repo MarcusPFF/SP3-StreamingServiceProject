@@ -1,43 +1,37 @@
 package StreamingProg;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
+import StreamingProg.FileIO;
+import StreamingProg.TextUI;
+import StreamingProg.UserManager;
+
+import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Netflix {
-
     private UserManager um;
     private Menu menu;
     private TextUI ui;
     private FileIO io;
-    private HashMap<String, User> userData;
+    private User user;
+    private List userData;
+
 
     public Netflix() {
         this.um = new UserManager();
         this.menu = new Menu();
         this.ui = new TextUI();
         this.io = new FileIO();
-        this.userData = new HashMap<>();
     }
 
     public void runApplication() {
         ui.displayMsg("Velkommen til netflix-backend streamingtjeneste systemet");
-        // runMovieLoader();
-         runUserManager();
-        //runMenu();
+        runUserManager();
     }
-
-    public void runMovieLoader() {
-
-
-        io.readMovieData(io.getMoviesDataPath());
-        for (String movie : io.getMoviesList()) {
-            System.out.println(movie);
-        }
-    }
-
 
     public void runUserManager() {
         Scanner scanner = new Scanner(System.in);
@@ -51,15 +45,36 @@ public class Netflix {
             ui.displayMsg("5. Exit");
 
             int choice = Integer.parseInt(scanner.nextLine());
-
+            ArrayList<User> userData = new ArrayList<>();
             switch (choice) {
-                case 1: {
+                case 1: { //Gør det her pænt ved at lave en metode i fileIO
+
                     ui.displayMsg("Lav ny bruger");
                     String username = ui.promptText("Skriv dit brugernavn");
                     String password = ui.promptText("Skriv password");
                     boolean isAdmin = ui.promptBinary("Skal brugeren være admin? Y/N");
-                    um.createUser(username, password, isAdmin);
-                    io.saveUserToFile(userData);
+                    User newUser = new User(username, password, isAdmin);
+                    um.createUser(newUser);
+
+                    if (userData == null) {
+                        userData = new ArrayList<>();
+                    }
+                    userData.add(newUser);
+
+                    try (FileWriter writer = new FileWriter("data/userData/userData.csv")) {
+                        String header = "Username, Password, isAdmin";
+                        writer.write(header + "\n");
+
+                        for (User user : userData) {
+                            String userInfo = user.getUsername() + ", " + user.getPassword() + ", " + user.isAdmin();
+                            writer.write(userInfo + "\n");
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong when writing to the file.");
+                    }
+
+                    // Save users to file
+                    System.out.println(newUser);
                     break;
                 }
 
@@ -67,47 +82,53 @@ public class Netflix {
                     ui.displayMsg("Login");
                     String username = ui.promptText("Skriv brugernavn");
                     String password = ui.promptText("Skriv password");
-                    um.validateUser(username, password);
-                    break;
-                }
-
-                case 3: {
-                    ui.displayMsg("Slet bruger");
-                    String username = ui.promptText("Skriv det brugernavn, du vil slette");
-                    um.deleteUser(username);
-                    break;
-                }
-
-                case 4: {
-                    ui.displayMsg("Vis alle brugere:");
-                    if (um.getUserData().isEmpty()) {
-                        ui.displayMsg("Ingen brugere fundet.");
-                    } else {
-                        um.getUserData().forEach((username, user) -> {
-                            ui.displayMsg("Brugernavn: " + username + ", Admin: " + (user.isAdmin() ? "Ja" : "Nej"));
-                        });
+                    boolean answer = um.validateUser(username, password);
+                    if (answer == true) {  // Use == for comparison, not =
+                        menu.displayMenu();
+                    } else if (answer == false) {
+                        ui.displayMsg("Fejl ved login");
+                        runUserManager();
                     }
                     break;
                 }
 
-                case 5: {
-                    ui.displayMsg("Luk programmet ned");
-                    ui.displayMsg("Lukker ned...");
-                    running = false;
-                    break;
-                }
 
-                default: {
-                    ui.displayMsg("Forkert input. Prøv igen");
+            case 3: {
+                ui.displayMsg("Slet bruger");
+                String username = ui.promptText("Skriv det brugernavn, du vil slette");
+                um.deleteUser(username);  // Sletter bruger fra listen
+                try (FileWriter writer = new FileWriter("data/userData/userData.csv")) {
+                    String header = "Username, Password, isAdmin";
+                    writer.write(header + "\n");
+
+                    for (User user : userData) {
+                        String userInfo = user.getUsername() + ", " + user.getPassword() + ", " + user.isAdmin();
+                        writer.write(userInfo + "\n");
+                    }
+                } catch (IOException e) {
+                    System.out.println("Something went wrong when writing to the file.");
                 }
+                break;
             }
 
-        }
-        scanner.close();
-    }
+            case 4: {
+                ui.displayMsg("Vis alle brugere:");
+                io.loadUserData("data/userData/userData.csv");
+                break;
+            }
 
-    public void runMenu() {
-        Menu menu = new Menu();
-        menu.displayMenu();
+
+            case 5: {
+                ui.displayMsg("Luk programmet ned");
+                ui.displayMsg("Lukker ned...");
+                running = false;
+                break;
+            }
+
+            default: {
+                ui.displayMsg("Forkert input. Prøv igen");
+            }
+        }
     }
+}
 }

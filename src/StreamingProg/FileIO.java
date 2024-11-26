@@ -9,7 +9,7 @@ import java.io.FileWriter;
 public class FileIO {
     //Ret String path til userDataPath, moviesDataPath, seriesDataPath inde i plantUML
     private User user;
-    private String userDataPath = "data/userData/userData.txt";
+    private String userDataPath = "data/userData/userData.csv";
     private String watchedMoviesDataPath = "data/watchedMovies/";
     private String favoritesDataPath = "data/favorites/";
     private String moviesDataPath = "data/entertainmentData/movies.txt";
@@ -19,11 +19,9 @@ public class FileIO {
     private List<String> favoritesList;
     private TextUI ui;
     private UserManager um;
-    private HashMap<String, User> userData;
-
 
     public FileIO() {
-        this.user = user;
+
         this.userDataPath = userDataPath;
         this.moviesDataPath = moviesDataPath;
         this.seriesDataPath = seriesDataPath;
@@ -31,34 +29,37 @@ public class FileIO {
         this.seriesList = new ArrayList<>();
         this.favoritesList = new ArrayList<>();
         this.ui = new TextUI();
-        this.um = new UserManager();
-        this.userData = um.getUserData();
-    }
+        this.um = new UserManager();}
 
-    public HashMap<String, Integer> loadUserData(String userDataPath) {
-        HashMap<String, Integer> userData = new HashMap<>();
-        String username;
-        String password;
+
+    public List<User> loadUserData(String userDataPath) {
         File file = new File(userDataPath);
         try {
             Scanner scanner = new Scanner(file);
-            scanner.nextLine();
+            scanner.nextLine(); // Spring header over
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
                 if (data.length == 3) {
-                    username = data[0].trim();
-                    password = data[1].trim();
+                    String username = data[0].trim();
+                    String password = data[1].trim();
                     boolean isAdmin = Boolean.parseBoolean(data[2].trim());
-                    userData.put(username, Integer.parseInt(password));
+
+                    // Opretter en User og tilføjer den til listen
+                    User user = new User(username, password, isAdmin);
+                    userData.add(user);
+
+                    // Hvis brugeren er admin, vis en meddelelse
                     if (isAdmin) {
-                        //Vi skal bruge displayMsg funktionen her
+                        // Her skal du bruge din displayMsg funktion
                         System.out.println("Bruger: " + username + " har admin rettigheder");
                     }
                 }
             }
+            scanner.close();
+
         } catch (FileNotFoundException e) {
-            //Vi skal bruge displayMsg funktionen her
+            // Brug displayMsg funktion her
             System.out.println("Ingen fil fundet på stien: " + userDataPath);
         }
         return userData;
@@ -193,22 +194,9 @@ public class FileIO {
         }
     }
 
-    public void saveUserToFile(HashMap<String, User> userData) {
+    // Ensure userData is initialized at the start
+    List<User> userData = new ArrayList<>();
 
-        try (FileWriter writer = new FileWriter(userDataPath)) {
-            for (Map.Entry<String, User> entry : userData.entrySet()) {
-                String username = entry.getKey(); // Nøglen fra HashMap (brugernavn)
-                User user = entry.getValue();    // Værdien fra HashMap (User-objekt)
-
-                writer.write(  username + ";" + user + "\n");
-            }
-            writer.close();
-
-            ui.displayMsg("Brugere gemt i " + userDataPath);
-        } catch (IOException e) {
-            ui.displayMsg("Der opstod en fejl under skrivning til filen: " + e.getMessage());
-        }
-    }
 
 
 
@@ -262,6 +250,5 @@ public class FileIO {
     public void setSeriesList(List<String> seriesList) {
         this.seriesList = seriesList;
     }
-
 
 }
