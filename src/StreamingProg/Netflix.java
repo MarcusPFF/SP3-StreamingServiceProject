@@ -49,13 +49,12 @@ public class Netflix {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
-            ui.displayMsg(" Vælg en mulighed: ");
+            ui.displayMsg(" --Vælg en mulighed-- ");
             ui.displayMsg("1. Lav ny bruger");
             ui.displayMsg("2. Login");
             ui.displayMsg("3. Slet bruger");
             ui.displayMsg("4. Vis alle brugere");
             ui.displayMsg("5. Exit");
-            ui.displayMsg("Vælg en mulighed");
 
             int choice = Integer.parseInt(scanner.nextLine());
 
