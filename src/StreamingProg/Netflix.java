@@ -1,47 +1,41 @@
 package StreamingProg;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Netflix {
 
-    private List<String> movieData;
-    private UserManager userManager;
-    private Menu menu = new Menu();
-    private TextUI ui = new TextUI();
+    private UserManager um;
+    private Menu menu;
+    private TextUI ui;
+    private FileIO io;
+    private HashMap<String, User> userData;
 
     public Netflix() {
-        this.userManager = new UserManager();
+        this.um = new UserManager();
+        this.menu = new Menu();
+        this.ui = new TextUI();
+        this.io = new FileIO();
+        this.userData = new HashMap<>();
     }
 
     public void runApplication() {
         ui.displayMsg("Velkommen til netflix-backend streamingtjeneste systemet");
-        runUserManager();
+        // runMovieLoader();
+         runUserManager();
         //runMenu();
     }
 
-    public void runQuestionMark() {
-        ArrayList<Media> Medias = new ArrayList<>();
-        FileIO fileIO = new FileIO();
-        movieData = fileIO.readMovieData(fileIO.getMoviesDataPath());
+    public void runMovieLoader() {
 
-        for (int i = 0; i > movieData.size(); i++) {
-            String[] movieInfo = movieData.get(i).split(";");
-            String title = movieInfo[0];
-            String releaseyear = movieInfo[1];
-            String genre = movieInfo[2];
-            float rating = Float.parseFloat(movieInfo[3].replace(",", "."));
 
-            Movie movie = new Movie(title, releaseyear, genre, rating);
-
-            movieData.add(movieInfo[4]);
-
+        io.readMovieData(io.getMoviesDataPath());
+        for (String movie : io.getMoviesList()) {
+            System.out.println(movie);
         }
-    }
-
-    public List<String> getMovieData() {
-        return movieData;
     }
 
 
@@ -64,7 +58,8 @@ public class Netflix {
                     String username = ui.promptText("Skriv dit brugernavn");
                     String password = ui.promptText("Skriv password");
                     boolean isAdmin = ui.promptBinary("Skal brugeren være admin? Y/N");
-                    userManager.createUser(username, password, isAdmin);
+                    um.createUser(username, password, isAdmin);
+                    io.saveUserToFile(userData);
                     break;
                 }
 
@@ -72,23 +67,23 @@ public class Netflix {
                     ui.displayMsg("Login");
                     String username = ui.promptText("Skriv brugernavn");
                     String password = ui.promptText("Skriv password");
-                    userManager.validateUser(username, password);
+                    um.validateUser(username, password);
                     break;
                 }
 
                 case 3: {
                     ui.displayMsg("Slet bruger");
                     String username = ui.promptText("Skriv det brugernavn, du vil slette");
-                    userManager.deleteUser(username);
+                    um.deleteUser(username);
                     break;
                 }
 
                 case 4: {
                     ui.displayMsg("Vis alle brugere:");
-                    if (userManager.getUserData().isEmpty()) {
+                    if (um.getUserData().isEmpty()) {
                         ui.displayMsg("Ingen brugere fundet.");
                     } else {
-                        userManager.getUserData().forEach((username, user) -> {
+                        um.getUserData().forEach((username, user) -> {
                             ui.displayMsg("Brugernavn: " + username + ", Admin: " + (user.isAdmin() ? "Ja" : "Nej"));
                         });
                     }
