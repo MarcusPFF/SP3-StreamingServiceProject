@@ -47,7 +47,6 @@ public class Netflix {
 
     public void runUserManager() {
         Scanner scanner = new Scanner(System.in);
-        TextUI ui = new TextUI();
         boolean running = true;
         while (running) {
             ui.displayMsg(" Vælg en mulighed: ");
