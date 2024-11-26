@@ -74,7 +74,7 @@ public class Netflix {
 
         if (um.validateUser(username, password)) {
             ui.displayMsg("Login succesfuldt. Velkommen!");
-            Menu menu = new Menu(username); // Pass the username of the logged-in user
+            Menu menu = new Menu(username);
             menu.displayMenu();
         } else {
             ui.displayMsg("Login mislykkedes. Prøv igen.");

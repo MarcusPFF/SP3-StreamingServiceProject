@@ -12,9 +12,9 @@ public class Menu {
     private final List<Media> series;
     private final List<Media> watchedMedia;
     private final List<Media> savedMedia;
-    private String username; // Username for the logged-in user
+    private String username;
 
-    // No-argument constructor
+    // No argument constructor
     public Menu() {
         this.ui = new TextUI();
         this.movies = new ArrayList<>();
@@ -59,7 +59,7 @@ public class Menu {
                 case 5 -> playMedia(ui.promptText("Enter the title of the media to play:"));
                 case 6 -> {
                     ui.displayMsg("Logging out...");
-                    return; // Exit menu
+                    return;
                 }
                 default -> ui.displayMsg("Invalid choice. Please try again.");
             }
