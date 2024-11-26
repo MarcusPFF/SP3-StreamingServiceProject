@@ -23,7 +23,7 @@ public class UserManager {
         // Ensure userData is initialized
         if (userData == null || userData.isEmpty()) {
             ui.displayMsg("Ingen brugere tilgængelige for validering.");
-            return false;
+            return false
         }
 
         // Check if the username exists
