@@ -128,7 +128,7 @@ public class UserManager {
     // Returnerer stien til den aktuelle brugers favoritmedier-fil
     public String getUserFavoritesDataPath() {
         if (user != null && user.getUsername() != null) {
-            userFavoritesDataPath = favoritesDataPath + user.getUsername() + "_favoriteMedias.txt";
+            userFavoritesDataPath = favoritesDataPath + user.getUsername() + "_favoriteMedia.txt";
         } else {
             ui.displayMsg("Brugerdata mangler! Kan ikke generere sti for favoritmedier.");
         }
