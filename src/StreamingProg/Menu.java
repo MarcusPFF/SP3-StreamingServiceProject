@@ -220,9 +220,18 @@ public class Menu {
             io.saveWatchedMediaData(user, watchedMedia);
             boolean answer = ui.promptBinary("Ønsker du at tilføje dette medie til dine favoritter: " + title);
             if (answer == true) {
-                favoriteMedia.add(media);
-                io.saveFavoriteMovieData(user, favoriteMedia);
+                for (Media media : movies) {
+                    if (media.getTitle().equalsIgnoreCase(title)) {
+                        favoriteMedia.add(media);
 
+                    }
+                }
+                for (Media media : series) {
+                    if (media.getTitle().contains(title)) {
+                        favoriteMedia.add(media);
+                    }
+                }
+                io.saveFavoriteMovieData(user, favoriteMedia);
             } else {
                 displayMenu();
             }
