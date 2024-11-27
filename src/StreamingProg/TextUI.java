@@ -1,54 +1,25 @@
 package StreamingProg;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class TextUI {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-
-    public void displayMsg(String s) {
-        System.out.println(s);
+    public void displayMsg(String message) {
+        System.out.println(message);
     }
 
-    public String promptText(String msg) {
-        System.out.println(msg); //Stille brugeren et spørgsmål
-        String input = scanner.nextLine();
-        return input;
+    public String promptText(String message) {
+        displayMsg(message);
+        return scanner.nextLine().trim();
     }
 
-    public int promptNumeric(String msg) {
-        System.out.println(msg);              // Stille brugeren et spørgsmål
-        String input = scanner.nextLine();
-        int number;
-        // Give brugere et sted at placere sit svar og vente på svaret
-        try {
-            number = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            displayMsg("Please type a number");
-            number = promptNumeric(msg);
+    public boolean promptBinary(String message) {
+        while (true) {
+            String input = promptText(message + " (Y/N):");
+            if (input.equalsIgnoreCase("Y")) return true;
+            if (input.equalsIgnoreCase("N")) return false;
+            displayMsg("Ugyldigt input. Prøv igen.");
         }
-        return number;
-    }
-
-    public ArrayList<String> promptChoice(String msg, ArrayList<String> list) {
-        ArrayList<String> choice = new ArrayList<String>();  //Lave en beholder til at gemme brugerens valg
-        return list;
-    }
-
-    public boolean promptBinary(String msg) {
-        String input = promptText(msg);
-        if (input.equalsIgnoreCase("Y")) {
-            return true;
-        } else if (input.equalsIgnoreCase("N")) {
-            return false;
-        }
-        return promptBinary(msg);
     }
 }
-
-
-
-
-
