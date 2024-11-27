@@ -1,40 +1,34 @@
 package StreamingProg;
 
 public class Series extends Media {
-    private int episodes;
-    private int seasons;
+    private int seasonsAndEpisodes;
 
-    public Series(String title, String releaseYear, String genre, float rating) {
+
+    public Series(String title, String releaseYear, String genre, String rating, String seasonsAndEpisodes) {
         super(title, releaseYear, genre, rating);
+
     }
 
     // Getters and Setters for episodes and seasons
-    public int getEpisodes() {
-        return episodes;
+    public int getSeasonsAndEpisodes() {
+        return seasonsAndEpisodes; //Fix
     }
 
-    public void setEpisodes(int episodes) {
-        this.episodes = episodes;
+    public void setSeasonsAndEpisodes(int episodes) {
+        this.seasonsAndEpisodes = seasonsAndEpisodes;
     }
 
-    public int getSeasons() {
-        return seasons;
-    }
-
-    public void setSeasons(int seasons) {
-        this.seasons = seasons;
-    }
 
     @Override
     public void play() {
-        System.out.println("Playing series: " + getTitle());
+        System.out.println("Spiller series: " + getTitle());
     }
 
     public void playEpisode(int episodeNumber) {
-        if (episodeNumber <= 0 || episodeNumber > episodes) {
-            System.out.println("Invalid episode number.");
+        if (episodeNumber <= 0 || episodeNumber > episodeNumber) {
+            System.out.println("Ugyldigt episode nummer: ");
         } else {
-            System.out.println("Playing episode " + episodeNumber + " of series: " + getTitle());
+            System.out.println("Spiller episode " + episodeNumber + " i serien " + getTitle());
         }
     }
 }

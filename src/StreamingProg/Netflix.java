@@ -50,7 +50,7 @@ public class Netflix {
                     ui.displayMsg("Lukker programmet ned...");
                     running = false;
                 }
-                default -> ui.displayMsg("Forkert input. Prøv igen.");
+                default -> ui.displayMsg("Forkert input. Indtast et tal mellem 1-5.");
             }
         }
     }
@@ -73,7 +73,6 @@ public class Netflix {
         String password = ui.promptText("Skriv password:");
 
         if (um.validateUser(username, password)) {
-            ui.displayMsg("Login succesfuldt. Velkommen!");
             Menu menu = new Menu(username);
             menu.displayMenu();
         } else {

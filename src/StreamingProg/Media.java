@@ -6,9 +6,9 @@ public abstract class Media {
     protected String title;
     protected String genre;
     protected String releaseYear;
-    protected float rating;
+    protected String rating;
 
-    public Media(String title, String releaseYear, String genre, float rating) {
+    public Media(String title, String releaseYear, String genre, String rating) {
         this.title = title;
         this.genre = genre;
         this.releaseYear = releaseYear;
@@ -40,18 +40,18 @@ public abstract class Media {
         this.releaseYear = releaseYear;
     }
 
-    public float getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
     // Overriding toString for better readability
     @Override
     public String toString() {
-        return "Title: " + title + ", Genre: " + genre + ", Release Year: " + releaseYear + ", Rating: " + rating;
+        return "Titel: " + title + ", Genre: " + genre + ", Udgivelse: " + releaseYear + ", Rating: " + rating;
     }
 
     // Abstract method to be implemented by subclasses

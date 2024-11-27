@@ -1,14 +1,23 @@
 package StreamingProg;
 
 public class User {
-    private final String username;
-    private final String password;
-    private final boolean isAdmin;
+    private String username;
+    private String password;
+    private boolean isAdmin;
 
+    //ik rør det virker
     public User(String username, String password, boolean isAdmin) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+
+    public User() {
+
+    }
+
+    public User(String username) {
+        this.username = username;
     }
 
     public String getUsername() {
@@ -25,8 +34,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
+        return "Bruger{" +
+                "Brugernavn='" + username + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }
