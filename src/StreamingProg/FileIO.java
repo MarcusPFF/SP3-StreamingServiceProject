@@ -34,7 +34,7 @@ public class FileIO {
 
     public void saveUserData(String filePath, List<User> users) {
         File file = new File(filePath);
-        file.getParentFile().mkdirs();
+        file.getParentFile().mkdirs(); //Fix
 
         try (FileWriter writer = new FileWriter(file)) {
             writer.write("Username,Password,isAdmin\n");
