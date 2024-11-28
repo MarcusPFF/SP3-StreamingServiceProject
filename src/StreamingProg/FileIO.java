@@ -17,9 +17,11 @@ public class FileIO {
         this.user = new User();
     }
 
-// Loads user data from a CSV file at the specified file path.
-// If the file doesn't exist, it prints an error message and returns an empty list.
-// Reads each line of the file, splits it by commas, and creates User objects with the data.
+/*
+ Loads user data from a CSV file at the specified file path.
+ If the file doesn't exist, it prints an error message and returns an empty list.
+ Reads each line of the file, splits it by commas, and creates User objects with the data.
+*/
 
     public List<User> loadUserData(String filePath) {
         List<User> users = new ArrayList<>();
@@ -46,9 +48,11 @@ public class FileIO {
         }
         return users;
     }
-    // Saves user data to a CSV file at the specified file path.
-    // If the parent directories of the file don't exist, they are created.
-    // Writes the user details (username, password, and admin status) for each user in the list to the file.
+    /*
+     Saves user data to a CSV file at the specified file path.
+     If the parent directories of the file don't exist, they are created.
+     Writes the user details (username, password, and validate (which is in this case admin status) for each user in the list to the file.
+    */
 
     public void saveUserData(String filePath, List<User> users) {
         File file = new File(filePath);
@@ -63,9 +67,11 @@ public class FileIO {
             System.out.println("Fejl ved skrivning af brugerdata: " + e.getMessage());
         }
     }
-// Saves the user's favorite media to a text file in the "favorites" folder.
-// Creates the parent directories if they don't exist and writes the list of favorites to the file.
-// Each favorite media is written to the file, with a header indicating the start of favorites.
+/*
+ Saves the user's favorite media to a text file in the "favorites" folder.
+ Creates the parent directories if they don't exist and writes the list of favorites to the file.
+ Each favorite media is written to the file, with a header indicating the start of favorites.
+*/
 
     public void saveFavoriteMovieData(User user, List<Media> favorites) {
         String filePathFavorites = "data/favorites/" + user.getUsername() + "_favoriteMedia.txt";
@@ -81,9 +87,11 @@ public class FileIO {
             System.out.println("Fejl ved skrivning af favorit data: " + e.getMessage());
         }
     }
-// Saves the user's watched media to a text file in the "watchedMedia" folder.
-// Creates the parent directories if they don't exist and writes the list of watched media to the file.
-// Each watched media is written to the file, with a header indicating the start of watched media.
+/*
+ Saves the user's watched media to a text file in the "watchedMedia" folder.
+ Creates the parent directories if they don't exist and writes the list of watched media to the file.
+ Each watched media is written to the file, with a header indicating the start of watched media.
+*/
 
     public void saveWatchedMediaData(User user, List<Media> watched) {
         String filePathWatched = "data/watchedMedia/" + user.getUsername() + "_watchedMedia.txt";
@@ -99,9 +107,11 @@ public class FileIO {
             System.out.println("Fejl ved skrivning af medie data: " + e.getMessage());
         }
     }
-// Loads the favorite media data from a specified file path.
-// If the file doesn't exist, it prints an error message and returns an empty list.
-// Reads each line of the file, parses the data, and creates Media objects (Movie or Series) based on the number of columns in the file.
+/*
+ Loads the favorite media data from a specified file path.
+ If the file doesn't exist, it prints an error message and returns an empty list.
+ Reads each line of the file, parses the data, and creates Media objects (Movie or Series) based on the number of columns in the file.
+*/
 
     public List<Media> loadFavoriteData(String filePath) {
         List<Media> favoriteMedia = new ArrayList<>();
@@ -139,9 +149,11 @@ public class FileIO {
         return favoriteMedia;
     }
 
-    // Loads the watched media data from a specified file path.
-    // If the file doesn't exist, it prints an error message and returns an empty list.
-    // Reads each line of the file, parses the data, and creates Media objects (Movie or Series) based on the number of columns in the file.
+    /*
+     Loads the watched media data from a specified file path.
+     If the file doesn't exist, it prints an error message and returns an empty list.
+     Reads each line of the file, parses the data, and creates Media objects (Movie or Series) based on the number of columns in the file.
+    */
 
     public List<Media> loadWatchedMediaData(String filePath) {
         List<Media> watchedMedia = new ArrayList<>();

@@ -39,9 +39,8 @@ public class UserManager {
         return userData;
     }
 
-    // Adds the new user to the userData list and sets them as the active user.
-// Displays a message confirming the user creation and initializes their data files (favorites and watched media).
 
+    //Creates a user and adds to ArrayList userdata
     public void createUser(User newUser) {
         userData.add(newUser);
         this.user = newUser;
@@ -50,10 +49,7 @@ public class UserManager {
         createWatchedMediaFile(newUser);
     }
 
-    // Loops through the list of users to find the matching username.
-// If the username exists, it checks the password and sets the user as active if valid.
-// If either the username or password is incorrect, it displays an appropriate message and returns false.
-
+    //Validates user
     public boolean validateUser(String username, String password) {
         for (User u : userData) {
             if (u.getUsername().equals(username)) {
@@ -72,9 +68,9 @@ public class UserManager {
         return false;
     }
 
-    // Attempts to remove the user with the specified username from the userData list.
-// Displays a success or failure message based on whether the user was found and deleted.
-
+    /* Attempts to remove the user with the specified username from the userData list.
+    Displays a success or failure message based on whether the user was found and deleted.
+     */
     public boolean deleteUser(String username) {
         if (userData.removeIf(u -> u.getUsername().equalsIgnoreCase(username))) {
             ui.displayMsg("Bruger slettet: " + username);
@@ -85,9 +81,9 @@ public class UserManager {
         }
     }
 
-// Creates a new favorites file for the specified user and returns the file path.
-// If the file already exists, it notifies the user, otherwise it creates a new file.
-
+    /* Creates a new favorites file for the specified user and returns the file path.
+     If the file already exists, it notifies the user, otherwise it creates a new file.
+     */
     private String createFavoritesFile(User user) {
         try {
             String filePath = favoritesDataPath + user.getUsername() + "_favoriteMedia.txt";
@@ -105,8 +101,9 @@ public class UserManager {
         }
     }
 
-    // Creates a new watched media file for the specified user and returns the file path.
-// If the file already exists, it notifies the user, otherwise it creates a new file.
+    /* Creates a new watched media file for the specified user and returns the file path.
+     If the file already exists, it notifies the user, otherwise it creates a new file.
+     */
 
     private String createWatchedMediaFile(User user) {
         try {
@@ -124,10 +121,10 @@ public class UserManager {
             return null;
         }
     }
-
-// Retrieves the file path for the user's watched media data based on their username.
-// If the user or username is null, it displays an error message and returns null.
-
+    //  Right now there is a bug where it always displays the ui.displayMsg
+    /* Retrieves the file path for the users watched media data based on their username.
+    If the user or username is null, it displays an error msg
+    */
     public String getUserWatchedMediaDataPath() {
         if (user != null && user.getUsername() != null) {
             userWatchedMediaDataPath = watchedMediaDataPath + user.getUsername() + "_watchedMedia.txt";
@@ -137,9 +134,10 @@ public class UserManager {
         return userWatchedMediaDataPath;
     }
 
-// Retrieves the file path for the user's favorite media data based on their username.
-// If the user or username is null, it displays an error message and returns null.
-
+    //  Right now there is a bug where it always displays the ui.displayMsg
+    /* Retrieves the file path for the user's favorite media data based on their username.
+    If the user or username is null, it displays an error msg
+    */
     public String getUserFavoritesDataPath() {
         if (user != null && user.getUsername() != null) {
             userFavoritesDataPath = favoritesDataPath + user.getUsername() + "_favoriteMedia.txt";
@@ -148,6 +146,4 @@ public class UserManager {
         }
         return userFavoritesDataPath;
     }
-
-
 }

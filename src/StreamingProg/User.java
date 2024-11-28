@@ -13,15 +13,12 @@ public class User {
         this.password = password;
         this.validate = validate;
     }
-   /* public boolean setValidate(boolean validate) {
-        return validate;
-    } */
-
-    public void setValidate(boolean validate) {
-        this.validate = validate; // Update the instance field
-    }
 
     public User() {  // Constructor for user
+    }
+
+    public void setValidate(boolean validate) {
+        this.validate = validate;
     }
 
     public User(String username) { // Constructor for user

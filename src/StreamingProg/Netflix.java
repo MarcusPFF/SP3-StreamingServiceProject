@@ -129,7 +129,6 @@ public class Netflix {
     }
 
 
-
     /*
     The loginUser method prompts for a username and password.
     If the credentials are valid, it grants access to the user's menu.

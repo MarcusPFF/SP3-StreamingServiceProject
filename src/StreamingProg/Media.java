@@ -1,7 +1,5 @@
 package StreamingProg;
 
-import java.util.List;
-
 public abstract class Media {
     //Initialising protected attributes
     protected String title;
@@ -53,7 +51,7 @@ public abstract class Media {
     // Overriding toString for readability
     @Override
     public String toString() {
-        return  title + ";" + genre + ";" + releaseYear + ";" + rating;
+        return title + ";" + genre + ";" + releaseYear + ";" + rating;
     }
 
     // Abstract method to be implemented by subclasses
