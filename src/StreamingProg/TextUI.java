@@ -22,4 +22,8 @@ public class TextUI {
             displayMsg("Ugyldigt input. Prøv igen.");
         }
     }
+    public String promptString(String message) {
+        System.out.println(message); // Display the message to the user
+        return scanner.nextLine();  // Return the user's input
+    }
 }

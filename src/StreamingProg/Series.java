@@ -1,11 +1,12 @@
 package StreamingProg;
 
 public class Series extends Media {
+    //Initialising private attributes
     private int seasonsAndEpisodes;
 
-
-    public Series(String title, String releaseYear, String genre, String rating, String seasonsAndEpisodes) {
-        super(title, releaseYear, genre, rating);
+    //Constructor
+    public Series(String title, String genre, String releaseYear, String rating, String seasonsAndEpisodes) {
+        super(title, genre, releaseYear, rating);
 
     }
 
@@ -19,9 +20,10 @@ public class Series extends Media {
     }
 
 
+    //This method plays and displays the current title
     @Override
     public void play() {
-        System.out.println("Spiller series: " + getTitle());
+        System.out.println("Spiller serien: " + getTitle());
     }
 
     public void playEpisode(int episodeNumber) {

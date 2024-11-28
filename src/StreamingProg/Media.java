@@ -3,12 +3,14 @@ package StreamingProg;
 import java.util.List;
 
 public abstract class Media {
+    //Initialising protected attributes
     protected String title;
     protected String genre;
     protected String releaseYear;
     protected String rating;
 
-    public Media(String title, String releaseYear, String genre, String rating) {
+    //Constructor
+    public Media(String title, String genre, String releaseYear, String rating) {
         this.title = title;
         this.genre = genre;
         this.releaseYear = releaseYear;
@@ -48,7 +50,7 @@ public abstract class Media {
         this.rating = rating;
     }
 
-    // Overriding toString for better readability
+    // Overriding toString for readability
     @Override
     public String toString() {
         return "Titel: " + title + ", Genre: " + genre + ", Udgivelse: " + releaseYear + ", Rating: " + rating;
