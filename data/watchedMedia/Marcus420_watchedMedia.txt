@@ -1,2 +1,4 @@
-Sete medier:
+Sete medie:
 Titanic; Drama, Romance; 1997; 7,8
+The Godfather; Crime, Drama; 1972; 8,9
+The Honeymooners; Comedy, Family; 1955-1956; 8,7

@@ -78,8 +78,10 @@ public class FileIO {
         File file = new File(filePathFavorites);
         file.getParentFile().mkdirs();
 
-        try (FileWriter writer = new FileWriter(filePathFavorites)) {
-            writer.write("Favoritter: \n");
+        try (FileWriter writer = new FileWriter(filePathFavorites, true)) {
+            if (file.length() == 0) {
+                writer.write("Favoritter: \n");
+            }
             for (Media media : favorites) {
                 writer.write(media + "\n");
             }
@@ -98,8 +100,10 @@ public class FileIO {
         File file = new File(filePathWatched);
         file.getParentFile().mkdirs();
 
-        try (FileWriter writer = new FileWriter(filePathWatched)) {
-            writer.write("Sete medier:\n");
+        try (FileWriter writer = new FileWriter(filePathWatched, true)) {
+            if (file.length() == 0) {
+                writer.write("Sete medier:\n");
+            }
             for (Media media : watched) {
                 writer.write(media + "\n");
             }
