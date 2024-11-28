@@ -1,3 +1,3 @@
-Username,Password,isAdmin
-kudsk,Jonathan123,true
-jonas,Jonas123,true
+Username,Password,Validate
+Marcus420,Marcus420,true
+Marcus420NO,Marcus420,false

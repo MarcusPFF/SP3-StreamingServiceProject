@@ -58,7 +58,6 @@ public class UserManager {
         for (User u : userData) {
             if (u.getUsername().equals(username)) {
                 if (u.getPassword().equals(password)) {
-                    this.user = u;
                     ui.displayMsg("Login succesfuldt: " + username);
                     getUserWatchedMediaDataPath();
                     getUserFavoritesDataPath();

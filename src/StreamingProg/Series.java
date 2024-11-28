@@ -12,7 +12,7 @@ public class Series extends Media {
 
     // Getters and Setters for episodes and seasons
     public int getSeasonsAndEpisodes() {
-        return seasonsAndEpisodes; //Fix
+        return seasonsAndEpisodes;
     }
 
     public void setSeasonsAndEpisodes(int episodes) {

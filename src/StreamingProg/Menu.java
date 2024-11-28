@@ -18,7 +18,6 @@ public class Menu {
     private final List<Media> favoriteMedia;
     private final UserManager um;
     private String username;
-    private Object addMedia;
 
     // No argument constructor
     public Menu() {
@@ -49,38 +48,34 @@ public class Menu {
     */
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
-            if (user.isAdmin()==false) {
-                ui.displayMsg("\n--- Main Menu for " + username + " ---");
-                ui.displayMsg("1. Vis medie");
-                ui.displayMsg("2. Søg efter film eller serie");
-                ui.displayMsg("3. Søg efter kategori");
-                ui.displayMsg("4. Vis sete medier");
-                ui.displayMsg("5. Vis favorit medier");
-                ui.displayMsg("6. Spil media");
-                ui.displayMsg("7. Log ud");
-            }
-            else if (user.isAdmin()) {
-                ui.displayMsg("\n--- Main Menu for " + username + " ---");
-                ui.displayMsg("1. Vis medie");
-                ui.displayMsg("2. Søg efter film eller serie");
-                ui.displayMsg("3. Søg efter kategori");
-                ui.displayMsg("4. Vis sete medier");
-                ui.displayMsg("5. Vis favorit medier");
-                ui.displayMsg("6. Spil media");
-                ui.displayMsg("7. Log ud");
+            // Display main menu
+            ui.displayMsg("\n--- Main Menu for " + username + " ---");
+            ui.displayMsg("1. Vis medie");
+            ui.displayMsg("2. Søg efter film eller serie");
+            ui.displayMsg("3. Søg efter kategori");
+            ui.displayMsg("4. Vis sete medier");
+            ui.displayMsg("5. Vis favorit medier");
+            ui.displayMsg("6. Spil media");
+            ui.displayMsg("7. Log ud");
+
+            // Display admin menu if the user is validated as admin (DOSN'T WORK)
+            if (user.validate == true) {
                 ui.displayMsg("\n--- Admin Menu ---");
                 ui.displayMsg("8. Tilføj medie");
                 ui.displayMsg("9. Fjern medie");
             }
+
             int choice;
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                ui.displayMsg("Ugyldigt input. Skriv et nummer mellem 1-7");
+                ui.displayMsg("Ugyldigt input. Skriv et nummer mellem 1 og " + (user.isValidate() ? "9" : "7"));
                 continue;
             }
 
+            // Handle menu choices
             switch (choice) {
                 case 1 -> showMedia();
                 case 2 -> searchMedia(ui.promptText("Skriv titlen på filmen eller serien:"));
@@ -93,19 +88,25 @@ public class Menu {
                     return;
                 }
                 case 8 -> {
-                    if (user.isAdmin()==true) {
+                    if (user.isValidate()) {
                         addNewMedia();
+                    } else {
+                        ui.displayMsg("Kun administratorer kan tilføje medier.");
                     }
                 }
                 case 9 -> {
-                    if (user.isAdmin()==true) {
+                    if (user.isValidate()) {
                         removeMedia();
+                    } else {
+                        ui.displayMsg("Kun administratorer kan fjerne medier.");
                     }
                 }
-                default -> ui.displayMsg("Ugyldigt input. Prøv igen");
+                default ->
+                        ui.displayMsg("Ugyldigt valg. Skriv et nummer mellem 1 og " + (user.isValidate() ? "9" : "7"));
             }
         }
     }
+
 // Prompts the user to add a new movie or series.
 // Based on the user's input, it writes the movie or series data to the corresponding file (movies.txt or series.txt).
 // If an error occurs while writing the data, it catches the IOException and prints an error message.
@@ -174,10 +175,6 @@ public class Menu {
                 String line = scanner3.nextLine();
                 String[] data = line.split(";");
                 if (data.length == 4) {
-                    /*String titel = data[0] + ";";
-                    String genre = data[1] + ";";
-                    String realeaseYear = data[2] + ";";
-                    String rating = data[3] + ";";*/
                     movies.add(new Movie(data[0], data[1], data[2], data[3]));
                 }
             }
@@ -203,11 +200,6 @@ public class Menu {
                 String line = scanner.nextLine();
                 String[] data = line.split(";");
                 if (data.length == 5) {
-                    /*String titel = data[0] + ";";
-                    String genre = data[1] + ";";
-                    String realeaseYear = data[2] + ";";
-                    String rating = data[3] + ";";
-                    String seasons = data[4] + ";";*/
                     series.add(new Series(data[0], data[1], data[2], data[3], data[4]));
                 }
             }
@@ -269,7 +261,7 @@ public class Menu {
             }
         }
         if (foundMedia.isEmpty()) {
-            ui.displayMsg("Ingen medie fundet i kategorien " + category);
+            ui.displayMsg("Ingen medie fundet med kategorien " + category);
         } else {
             ui.displayMsg("Disse film indeholder " + category + ":");
             for (Media media : foundMedia) {
@@ -284,8 +276,7 @@ public class Menu {
     Otherwise, it iterates through and displays each media item the user has watched.
     */
     private void displayWatchedMedia() {
-        io.loadWatchedMediaData("data/watchedMedia/" + user.getUsername() + "_watchedMedia.txt");
-        System.out.println("WatchedMedia: " + watchedMedia);
+        List<Media> watchedMedia = io.loadWatchedMediaData("data/watchedMedia/" + user.getUsername() + "_watchedMedia.txt");
         if (watchedMedia.isEmpty()) {
             ui.displayMsg("Ikke set medie: ");
         } else {
@@ -298,7 +289,7 @@ public class Menu {
 
     //Same method here as displayWatchedMedia();
     private void displayFavoriteMedia() {
-        io.loadFavoriteData("data/favorites/" + user.getUsername() + "_favoriteMedia.txt");
+        List<Media> favoriteMedia = io.loadFavoriteData("data/favorites/" + user.getUsername() + "_favoriteMedia.txt");
         if (favoriteMedia.isEmpty()) {
             ui.displayMsg("Ingen gemte medier: ");
         } else {

@@ -37,8 +37,8 @@ public class FileIO {
                 if (data.length == 3) {
                     String username = data[0].trim();
                     String password = data[1].trim();
-                    boolean isAdmin = Boolean.parseBoolean(data[2].trim());
-                    users.add(new User(username, password, isAdmin));
+                    boolean validate = Boolean.parseBoolean(data[2].trim());
+                    users.add(new User(username, password, validate));
                 }
             }
         } catch (IOException e) {
@@ -55,9 +55,9 @@ public class FileIO {
         file.getParentFile().mkdirs(); //Fix
 
         try (FileWriter writer = new FileWriter(file)) {
-            writer.write("Username,Password,isAdmin\n");
+            writer.write("Username,Password,Validate\n");
             for (User user : users) {
-                writer.write(user.getUsername() + "," + user.getPassword() + "," + user.isAdmin() + "\n");
+                writer.write(user.getUsername() + "," + user.getPassword() + "," + user.isValidate() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Fejl ved skrivning af brugerdata: " + e.getMessage());
@@ -133,7 +133,6 @@ public class FileIO {
                     favoriteMedia.add(media);
                 }
             }
-            System.out.println("favoriteMedia: " + favoriteMedia);
         } catch (IOException e) {
             System.out.println("Fejl ved læsning af brugerdata: " + e.getMessage());
         }

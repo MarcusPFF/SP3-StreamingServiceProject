@@ -1,22 +1,30 @@
 package StreamingProg;
 
 public class User {
+    // Declaring the variables
     private String username;
     private String password;
-    private boolean isAdmin;
+    public boolean validate;
 
-    //ik rør det virker
-    public User(String username, String password, boolean isAdmin) {
+
+    // Constructor for user
+    public User(String username, String password, boolean validate) {
         this.username = username;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.validate = validate;
+    }
+   /* public boolean setValidate(boolean validate) {
+        return validate;
+    } */
+
+    public void setValidate(boolean validate) {
+        this.validate = validate; // Update the instance field
     }
 
-    public User() {
-
+    public User() {  // Constructor for user
     }
 
-    public User(String username) {
+    public User(String username) { // Constructor for user
         this.username = username;
     }
 
@@ -28,15 +36,16 @@ public class User {
         return password;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public boolean isValidate() {
+        return validate;
     }
 
+    // To string
     @Override
     public String toString() {
-        return "Bruger{" +
+        return "Brugere{" +
                 "Brugernavn='" + username + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", validate=" + validate +
                 '}';
     }
 }

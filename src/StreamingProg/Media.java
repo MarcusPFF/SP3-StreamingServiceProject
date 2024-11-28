@@ -53,7 +53,7 @@ public abstract class Media {
     // Overriding toString for readability
     @Override
     public String toString() {
-        return "Titel: " + title + ", Genre: " + genre + ", Udgivelse: " + releaseYear + ", Rating: " + rating;
+        return  title + ";" + genre + ";" + releaseYear + ";" + rating;
     }
 
     // Abstract method to be implemented by subclasses

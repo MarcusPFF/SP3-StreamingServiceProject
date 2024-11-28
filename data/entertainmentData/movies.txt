@@ -1,4 +1,4 @@
-
+Title, Genre, Udgivelsesår, Rating
 The Godfather; Crime, Drama; 1972; 8,9
 The Shawshank Redemption; Drama; 1994; 9,3
 Schindler's List; Biography, Drama, History; 1993; 8,9

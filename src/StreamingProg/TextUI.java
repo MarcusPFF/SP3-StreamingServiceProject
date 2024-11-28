@@ -3,6 +3,7 @@ package StreamingProg;
 import java.util.Scanner;
 
 public class TextUI {
+    //Initialising new scanner object
     private final Scanner scanner = new Scanner(System.in);
 
     public void displayMsg(String message) {
@@ -21,9 +22,5 @@ public class TextUI {
             if (input.equalsIgnoreCase("N")) return false;
             displayMsg("Ugyldigt input. Prøv igen.");
         }
-    }
-    public String promptString(String message) {
-        System.out.println(message); // Display the message to the user
-        return scanner.nextLine();  // Return the user's input
     }
 }

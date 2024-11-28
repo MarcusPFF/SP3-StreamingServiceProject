@@ -75,7 +75,7 @@ public class Netflix {
         String username = ui.promptText("Skriv dit nye brugernavn:");
 
         // Validating username
-        while (username.length() < 3 || username.length() > 8 || isUsernameTaken(username)) {
+        while (username.length() < 3 || username.length() > 16 || isUsernameTaken(username)) {
             if (username.length() < 3 || username.length() > 16) {
                 ui.displayMsg("Dit brugernavn skal være mellem 3 og 16 tegn. Prøv igen.");
             } else {
@@ -84,13 +84,23 @@ public class Netflix {
             username = ui.promptText("Skriv dit nye brugernavn:");
         }
 
+
         // Validating password
         String password = ui.promptText("Skriv dit nye password:");
         while (!isValidPassword(password)) {
             ui.displayMsg("Password skal være mindst 8 tegn langt, med mindst 1 stort bogstav og 1 tal. Prøv igen.");
             password = ui.promptText("Skriv dit nye password:");
-        }
 
+        }
+        makeAdmin();
+        User newUser = new User(username, password, user.validate);
+        um.createUser(newUser);
+
+        io.saveUserData("data/userData/userData.csv", um.getUserData());
+        ui.displayMsg("Ny bruger oprettet: " + newUser);
+    }
+
+    public boolean makeAdmin() {
         // Admin-check
         boolean isAdmin = ui.promptBinary("Skal brugeren være admin?");
         if (isAdmin == true) {
@@ -98,27 +108,27 @@ public class Netflix {
                 String adminCode = ui.promptText("Indtast admin-kode for at blive admin:");
                 if (adminCode.equals("Admin12!")) {
                     ui.displayMsg("Du er nu admin.");
-                    isAdmin = true;
-                    break; // Exit loop if the correct admin code is entered
+                    user.setValidate(true);
+                    return user.validate = true;
                 } else {
-                    ui.displayMsg("Forkert kode, prøv igen. Du har nu " + (3 - i - 1) + " forsøg tilbage");
+                    ui.displayMsg("Forkert kode, prøv igen. Du har nu " + (2 - i) + " forsøg tilbage");
+                    return user.validate = false;
                 }
             }
-            if (isAdmin==false) {
+            if (isAdmin == false) {
                 ui.displayMsg("Du har brugt alle forsøg. Du er ikke admin.");
-               boolean value = user.isAdmin();
+                user.setValidate(false);
+
+
             }
+            return user.validate = false;
         } else {
             ui.displayMsg("Brugeren er ikke admin");
+            return user.validate = false;
         }
-
-
-        // Create user and save data
-        User newUser = new User(username, password, isAdmin);
-        um.createUser(newUser);
-        io.saveUserData("data/userData/userData.csv", um.getUserData());
-        ui.displayMsg("Ny bruger oprettet: " + newUser);
     }
+
+
 
     /*
     The loginUser method prompts for a username and password.
@@ -129,9 +139,18 @@ public class Netflix {
         ui.displayMsg("Login");
         String username = ui.promptText("Skriv brugernavn:");
         String password = ui.promptText("Skriv password:");
+        List<User> users = io.loadUserData("data/userData/userData.csv");
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password) && user.isValidate() == true) {
+                user.setValidate(true);
+            } else if (user.getUsername().equals(username) && user.getPassword().equals(password) && user.isValidate() == false) {
+                user.setValidate(false);
+            }
 
+        }
         if (um.validateUser(username, password)) {
             Menu menu = new Menu(username);
+
             menu.displayMenu();
         } else {
             ui.displayMsg("Login mislykkedes. Prøv igen.");
@@ -154,6 +173,7 @@ public class Netflix {
             ui.displayMsg("Brugeren blev ikke fundet.");
         }
     }
+
     /*
     The viewUsers method displays a list of all users.
     If no users are found, it shows a corresponding message.
