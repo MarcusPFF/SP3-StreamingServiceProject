@@ -33,6 +33,7 @@ public class Netflix {
             ui.displayMsg("4. Vis alle brugere");
             ui.displayMsg("5. Exit");
 
+
             int choice;
             try {
                 choice = Integer.parseInt(scanner.nextLine());
