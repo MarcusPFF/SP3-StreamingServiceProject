@@ -1,0 +1,118 @@
+@startuml
+!pragma layout smetana
+title Netflix Application Design
+
+class Main {
+    + static void main(String[] args)
+
+}
+
+Main *-- Netflix
+
+class Netflix {
+    - UserManager userManager
+    - Menu menu
+    + void runApplication()
+}
+
+Netflix *-- TextUI
+
+class TextUI {
+- Scanner scanner
+
++ void displayMsg(String s)
++ String promptText(String msg)
++ int promptNumeric (String msg)
++ int promptChoice(String msg, ArrayList<String> List)
++ boolean promptBinary(String msg)
+
+}
+Netflix *-- UserManager
+Netflix *-- Menu
+
+class UserManager {
+    - HashMap<String, Integer> userData
+    + void createUser(String username, String password, boolean isAdmin)
+    + boolean validateUser(String username, String password)
+    + void HashMap<String, Integer> getUserData()
+    + void setUserData(HashMap<String, Integer> userData)
+    + void deleteUser(User user)
+
+}
+
+UserManager *-- User
+
+class User {
+    - String username
+    - String password
+    - boolean isAdmin
+    + User(String username, String password, boolean isAdmin)
+    + String getUsername()
+    + void setUsername(String username)
+    + String getPassword()
+    + void setPassword(String password)
+    + boolean isAdmin()
+    + void setAdmin(boolean admin)
+}
+
+UserManager *-- FileIO
+
+class FileIO {
+    + HashMap<String, User> loadUserData(String path)
+    + public void saveUserData(String path, HashMap<String, User> userData)
+    + List<String> readMovieData(String path)
+    + List<String> readSeriesData(String path)
+    + void addMedia()
+    + void removeMedia()
+
+}
+
+class Menu{
+    - String username
+    + List<Media> mediaList
+    + void searchFilm(String title)
+    + void sortByCategory(String category)
+    + void watchedFilms(String username)
+    + void savedFilms(String username)
+    + void playMovie()
+    + List<String> searchMedia(String search)
+    + void displayMenu()
+    + void populateMediaLists(List<String> mediaList)
+    + void addMedia(Media media)
+    + void removeMedia(Media media)
+    + boolean isAdmin()
+}
+
+abstract class Media extends Menu {
+    - String title
+    - String genre
+    - int releaseYear
+    - float rating
+    + String getTitle()
+    + String getGenre()
+    + int getReleaseYear()
+    + float getRating()
+    + void setTitle(String title)
+    + void setGenre(String genre)
+    + void setReleaseYear(int releaseYear)
+    + void setRating(float rating)
+}
+
+class Movie extends Media {
+    - int duration
+    + void playMovie()
+    + int getDuration()
+    + void setDuration(int duration)
+}
+
+class Series extends Media{
+    - int episodes
+    - int seasons
+    + void playEpisode(int episodeNumber)
+    + int getEpisodes()
+    + void setEpisodes(int episodes)
+    + int getSeasons()
+    + void setSeasons(int seasons)
+}
+
+@enduml
